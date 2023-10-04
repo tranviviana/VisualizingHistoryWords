@@ -44,7 +44,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public List<Integer> years() {
         // TODO: Fill in this method.
         List<Integer> yearsList = new ArrayList<>();
-        yearsList.addAll(descendingKeySet());
+        yearsList.addAll(navigableKeySet());
         return yearsList;
     }
 
