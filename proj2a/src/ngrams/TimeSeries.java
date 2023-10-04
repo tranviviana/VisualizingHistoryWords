@@ -1,5 +1,6 @@
 package ngrams;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -27,6 +28,15 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
+        TimeSeries clonedTime = new TimeSeries();
+//      clonedTime = (TimeSeries) ts.subMap(startYear, true, endYear, true);
+        int currentYear = startYear;
+        while (currentYear <= endYear) {
+            if (ts.containsKey(currentYear)) {
+                clonedTime.put(currentYear, ts.get(currentYear));
+            }
+            currentYear += 1;
+        }
         // TODO: Fill in this constructor.
     }
 
@@ -35,6 +45,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public List<Integer> years() {
         // TODO: Fill in this method.
+        List<Integer> yearsList = new ArrayList<>();
+        forEach()
         return null;
     }
 
