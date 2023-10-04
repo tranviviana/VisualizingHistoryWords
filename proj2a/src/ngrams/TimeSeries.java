@@ -55,8 +55,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public List<Double> data() {
         List<Double> dataList = new ArrayList<>();
         List<Integer> yearList = years();
-        for (double element : yearList) {
-            dataList.add(element);
+        for (int element : yearList) {
+            dataList.add(get(element));
         }
         return dataList;
     }
@@ -103,9 +103,27 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * IllegalArgumentException.
      * If TS has a year that is not in this TimeSeries, ignore it.
      */
+    //in the beginning quotientTimeSeries has all of ts so if it doesnt contain our year throw an error.
     public TimeSeries dividedBy(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries quotientTimeSeries = new TimeSeries();
+        quotientTimeSeries.putAll(ts);
+        return dividedByHelper(quotientTimeSeries);
+    }
+    private TimeSeries dividedByHelper(TimeSeries quotientTimeSeries) {
+        List<Integer> currentYears = years();
+        TimeSeries completedSeries = new TimeSeries();
+        for (int year: currentYears) {
+            if (!quotientTimeSeries.containsKey(year)) {
+                throw new IllegalArgumentException("nooooo");
+            }
+            else {
+                double quotient = get(year) / quotientTimeSeries.get(year);
+                completedSeries.put(year, quotient);
+            }
+        }
+        return completedSeries;
+
     }
 
     // TODO: Add any private helper methods.
