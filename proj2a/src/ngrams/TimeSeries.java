@@ -72,7 +72,26 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries unsummedTimeSeries = new TimeSeries();
+        if (ts.firstKey() == null && firstKey() == null) {
+            return null;
+        }
+        unsummedTimeSeries.putAll(ts);
+        return addingSecond(unsummedTimeSeries);
+    }
+    private TimeSeries addingSecond(TimeSeries unsummedTimeSeries) {
+        List<Integer> currentYears = years();
+        for (int year: currentYears) {
+            if (unsummedTimeSeries.containsKey(year)) {
+                double summedValue = get(year) + unsummedTimeSeries.get(year);
+                unsummedTimeSeries.put(year, summedValue);
+
+            }
+            else {
+                unsummedTimeSeries.put(year, get(year));
+            }
+        }
+        return unsummedTimeSeries;
     }
 
     /**
