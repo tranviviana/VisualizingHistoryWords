@@ -1,9 +1,9 @@
 package ngrams;
 
-import java.util.Collection;
+import edu.princeton.cs.algs4.In;
 
-import static ngrams.TimeSeries.MAX_YEAR;
-import static ngrams.TimeSeries.MIN_YEAR;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * An object that provides utility methods for making queries on the
@@ -18,12 +18,49 @@ import static ngrams.TimeSeries.MIN_YEAR;
 public class NGramMap {
 
     // TODO: Add any necessary static/instance variables.
+    private TimeSeries wordsPerYear;
+    private HashMap mapOfAllTimes;
 
     /**
      * Constructs an NGramMap from WORDSFILENAME and COUNTSFILENAME.
      */
-    public NGramMap(String wordsFilename, String countsFilename) {
+    public NGramMap(String wordsFileName, String countsFilename) {
         // TODO: Fill in this constructor. See the "NGramMap Tips" section of the spec for help.
+        wordsPerYear = new TimeSeries();
+        totalWordCounter(countsFilename);
+        In in = new In(wordsFileName);
+        mapOfAllTimes = new HashMap();
+        inputtingIndividualWords(in);
+
+
+    }
+    /*creates a timeseries for a specific word*/
+    private void inputtingIndividualWords(In in) {
+        if (!in.hasNextLine()){
+            return;
+        }
+        TimeSeries wordTimeSeries = new TimeSeries();
+        String nextLine = in.readLine();
+        String[] splitLine = nextLine.split("\t");
+        String previousWord = splitLine[0];
+        while (splitLine[0].equals(previousWord) && in.hasNextLine()) {
+            wordTimeSeries.put(Integer.parseInt(splitLine[1]), Double.parseDouble(splitLine[2]));
+            previousWord = splitLine[0];
+            nextLine = in.readLine();
+            splitLine = nextLine.split("\t");
+        }
+        mapOfAllTimes.put(previousWord, wordTimeSeries);
+        inputtingIndividualWords(in);
+    }
+
+    /*creates a timeseries that associates years to the quantity of words from that year*/
+    private void totalWordCounter(String countsFileName){
+        In in = new In(countsFileName);
+        while (in.hasNextLine()) {
+            String nextLine = in.readLine();
+            String[] splitLine = nextLine.split(",");
+            wordsPerYear.put(Integer.parseInt(splitLine[0]), Double.parseDouble(splitLine[1]));
+        }
     }
 
     /**

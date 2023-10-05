@@ -59,6 +59,6 @@ public class TimeSeriesTest {
         for (int i = 0; i < expectedTotal.size(); i += 1) {
             assertThat(dividedNoError.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
         }
-        
+
     }
 } 

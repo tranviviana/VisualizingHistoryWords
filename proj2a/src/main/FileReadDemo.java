@@ -1,6 +1,7 @@
 package main;
 
 import edu.princeton.cs.algs4.In;
+import ngrams.TimeSeries;
 
 public class FileReadDemo {
     public static void main(String[] args) {
@@ -18,3 +19,7 @@ public class FileReadDemo {
         }
     }
 }
+
+
+
+

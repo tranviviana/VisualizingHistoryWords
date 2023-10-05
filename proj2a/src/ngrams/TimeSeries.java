@@ -27,7 +27,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-//      clonedTime = (TimeSeries) ts.subMap(startYear, true, endYear, true);
         int currentYear = startYear;
         while (currentYear <= endYear) {
             if (ts.containsKey(currentYear)) {
