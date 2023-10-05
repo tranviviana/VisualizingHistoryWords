@@ -2,6 +2,7 @@ package ngrams;
 
 import edu.princeton.cs.algs4.In;
 
+import java.sql.Time;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -34,7 +35,7 @@ public class NGramMap {
 
 
     }
-    /*creates a timeseries for a specific word*/
+    /*creates a time-series for a specific word*/
     private void inputtingIndividualWords(In in) {
         String nextLine = in.readLine();
         String[] splitLine = nextLine.split("\t");
@@ -75,8 +76,8 @@ public class NGramMap {
      * returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
-        return null;
+        TimeSeries associatedTimeSeries = (TimeSeries) mapOfAllTimes.get(word);
+        return new TimeSeries(associatedTimeSeries, startYear, endYear);
     }
 
     /**
