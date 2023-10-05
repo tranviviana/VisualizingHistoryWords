@@ -110,8 +110,8 @@ public class NGramMap {
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
         TimeSeries relativeTimeSeries = new TimeSeries();
-        
-        return null;
+        relativeTimeSeries.putAll(countHistory(word, startYear, endYear).dividedBy(totalCountHistory()));
+        return relativeTimeSeries;
     }
 
     /**
@@ -120,7 +120,7 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word) {
-        // TODO: Fill in this method.
+        weightHistory(word, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR)
         return null;
     }
 
