@@ -120,7 +120,7 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word) {
-        weightHistory(word, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR)
+        weightHistory(word, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR);
         return null;
     }
 
@@ -129,8 +129,7 @@ public class NGramMap {
      * ENDYEAR, inclusive of both ends. If a word does not exist in this time frame, ignore it
      * rather than throwing an exception.
      */
-    public TimeSeries summedWeightHistory(Collection<String> words,
-                                          int startYear, int endYear) {
+    public TimeSeries summedWeightHistory(Collection<String> words, int startYear, int endYear) {
         // TODO: Fill in this method.
         return null;
     }
@@ -142,6 +141,7 @@ public class NGramMap {
     public TimeSeries summedWeightHistory(Collection<String> words) {
         // TODO: Fill in this method.
         return null;
+        }
     }
 
     // TODO: Add any private helper methods.
