@@ -87,8 +87,10 @@ public class NGramMap {
      * is not in the data files, returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word) {
-        // TODO: Fill in this method.
-        return null;
+        // TODO: Fill in this method.'
+        TimeSeries associatedTimeSeries = new TimeSeries();
+        associatedTimeSeries.putAll((TimeSeries) mapOfAllTimes.get(word));
+        return associatedTimeSeries;
     }
 
     /**
@@ -96,7 +98,9 @@ public class NGramMap {
      */
     public TimeSeries totalCountHistory() {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries associatedTimeSeries = new TimeSeries();
+        associatedTimeSeries.putAll(wordsPerYear);
+        return associatedTimeSeries;
     }
 
     /**
@@ -105,7 +109,8 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
-        // TODO: Fill in this method.
+        TimeSeries relativeTimeSeries = new TimeSeries();
+        
         return null;
     }
 
