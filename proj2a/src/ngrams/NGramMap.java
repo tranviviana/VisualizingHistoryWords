@@ -129,9 +129,14 @@ public class NGramMap {
      * ENDYEAR, inclusive of both ends. If a word does not exist in this time frame, ignore it
      * rather than throwing an exception.
      */
+    //has a size method
     public TimeSeries summedWeightHistory(Collection<String> words, int startYear, int endYear) {
         // TODO: Fill in this method.
-        return null;
+        TimeSeries summedTimeSeries = new TimeSeries();
+        for (String word : words) {
+            summedTimeSeries.plus(countHistory(word, startYear, endYear));
+        }
+        return summedTimeSeries;
     }
 
     /**
@@ -140,8 +145,7 @@ public class NGramMap {
      */
     public TimeSeries summedWeightHistory(Collection<String> words) {
         // TODO: Fill in this method.
-        return null;
-        }
+        return summedWeightHistory(words, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR);
     }
 
     // TODO: Add any private helper methods.
