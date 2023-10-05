@@ -30,27 +30,30 @@ public class NGramMap {
         totalWordCounter(countsFilename);
         In in = new In(wordsFileName);
         mapOfAllTimes = new HashMap();
-        inputtingIndividualWords(in);
+        
+        String nextLine = in.readLine();
+        String[] splitLine = nextLine.split("\t");
+        String previousWord = splitLine[0];
+        inputtingIndividualWords(in, previousWord);
 
 
     }
     /*creates a timeseries for a specific word*/
-    private void inputtingIndividualWords(In in) {
+    private void inputtingIndividualWords(In in, String previousWord) {
         if (!in.hasNextLine()){
             return;
         }
         TimeSeries wordTimeSeries = new TimeSeries();
-        String nextLine = in.readLine();
-        String[] splitLine = nextLine.split("\t");
-        String previousWord = splitLine[0];
+
         while (splitLine[0].equals(previousWord) && in.hasNextLine()) {
             wordTimeSeries.put(Integer.parseInt(splitLine[1]), Double.parseDouble(splitLine[2]));
             previousWord = splitLine[0];
             nextLine = in.readLine();
             splitLine = nextLine.split("\t");
         }
+        previousWord = splitLine[0];
         mapOfAllTimes.put(previousWord, wordTimeSeries);
-        inputtingIndividualWords(in);
+        inputtingIndividualWords(in, previousWord);
     }
 
     /*creates a timeseries that associates years to the quantity of words from that year*/
