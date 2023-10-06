@@ -16,7 +16,7 @@ public class Main {
 
         hns.startUp();
         hns.register("history", new DummyHistoryHandler());
-        hns.register("historytext", new DummyHistoryTextHandler());
+        hns.register("historytext", new HistoryTextHandler());
 
         System.out.println("Finished server startup! Visit http://localhost:4567/ngordnet_2a.html");
     }
