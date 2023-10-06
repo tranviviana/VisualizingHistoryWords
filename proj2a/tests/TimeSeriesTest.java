@@ -60,5 +60,25 @@ public class TimeSeriesTest {
             assertThat(dividedNoError.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
         }
 
+
+    }
+    @Test
+    public void plusTest() {
+        TimeSeries catPopulation = new TimeSeries();
+        catPopulation.put(1991, 0.0);
+        catPopulation.put(1992, 100.0);
+        catPopulation.put(1994, 200.0);
+
+        TimeSeries dogPopulation = new TimeSeries();
+        dogPopulation.put(1994, 400.0);
+        dogPopulation.put(1992, 500.0);
+        TimeSeries addedBoth = catPopulation.plus(dogPopulation);
+        TimeSeries addedBothReverse = dogPopulation.plus(catPopulation);
+        List<Double> expectedTotal = new ArrayList<>
+                (Arrays.asList(0.0, 600.0, 600.0));
+        for (int i = 0; i < expectedTotal.size(); i += 1) {
+            assertThat(addedBoth.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
+            assertThat(addedBothReverse.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
+        }
     }
 } 

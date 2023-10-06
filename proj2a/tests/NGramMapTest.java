@@ -99,6 +99,7 @@ public class NGramMapTest {
         double expectedFishPlusDogWeight1865 = (175702.0 + 697645.0) / 28307904288.0;
         assertThat(fishPlusDogWeight.get(1865)).isWithin(1E-10).of(expectedFishPlusDogWeight1865);
     }
+
     @Test
     public void testAddingTwoWords() {
         // creates an NGramMap from a large dataset
