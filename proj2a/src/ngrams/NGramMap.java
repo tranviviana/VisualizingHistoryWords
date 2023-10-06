@@ -76,7 +76,8 @@ public class NGramMap {
      * returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        TimeSeries associatedTimeSeries = (TimeSeries) mapOfAllTimes.get(word);
+        TimeSeries associatedTimeSeries = new TimeSeries();
+        associatedTimeSeries.putAll((TimeSeries) mapOfAllTimes.get(word));
         return new TimeSeries(associatedTimeSeries, startYear, endYear);
     }
 
