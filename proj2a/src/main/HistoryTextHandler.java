@@ -11,7 +11,7 @@ cat: {2000=1.71568475416827E-5, 2001=1.6120939684412677E-5, 2002=1.6174201063062
 dog: {2000=3.127517699525712E-5, 2001=2.99511426723737E-5, 2002=3.0283458650225453E-5, 2003=3.1470761877596034E-5, 2004=3.2890514515432536E-5, 2005=3.753038415155302E-5, 2006=3.74430614362125E-5, 2007=3.987077208249744E-5, 2008=4.267197824115907E-5, 2009=4.81026086549733E-5, 2010=5.30567576173992E-5, 2011=6.048536820577008E-5, 2012=5.179787485962082E-5, 2013=5.0225599367200654E-5, 2014=5.5575537540090384E-5, 2015=5.44261096781696E-5, 2016=4.805214145459557E-5, 2017=5.4171157785607686E-5, 2018=5.206751570646653E-5, 2019=5.5807040409297486E-5} */
 
 public class HistoryTextHandler extends NgordnetQueryHandler {
-    private NGramMap files;
+    private final NGramMap files;
     private TimeSeries timeSeriesPrinted;
     public HistoryTextHandler(NGramMap map) {
         files = map;
@@ -24,15 +24,15 @@ public class HistoryTextHandler extends NgordnetQueryHandler {
         List<String> words = q.words();
         int startYear = q.startYear();
         int endYear = q.endYear();
-        String response = "";
+        StringBuilder response = new StringBuilder();
         for (String word : words) {
-            response += word + ": ";
+            response.append(word).append(": ");
             timeSeriesPrinted = files.weightHistory(word, startYear, endYear);
-            response += relativePopularityHistory(timeSeriesPrinted);
-            response += "\n";
+            response.append(relativePopularityHistory(timeSeriesPrinted));
+            response.append("\n");
 
         }
-        return response;
+        return response.toString();
     }
 
     public String relativePopularityHistory(TimeSeries information) {
