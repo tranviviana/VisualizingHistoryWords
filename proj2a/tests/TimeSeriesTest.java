@@ -80,5 +80,6 @@ public class TimeSeriesTest {
             assertThat(addedBoth.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
             assertThat(addedBothReverse.data().get(i)).isWithin(1E-10).of(expectedTotal.get(i));
         }
+        assertThat(addedBoth.size()).isEqualTo(3);
     }
 } 

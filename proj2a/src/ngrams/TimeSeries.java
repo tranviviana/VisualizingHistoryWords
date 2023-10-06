@@ -13,8 +13,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
 
     public static final int MIN_YEAR = 1400;
     public static final int MAX_YEAR = 2100;
-    private int start;
-    private int end;
+
     /**
      * Constructs a new empty TimeSeries.
      */
@@ -28,8 +27,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
-        start = startYear;
-        end = endYear;
         int currentYear = startYear;
         while (currentYear <= endYear) {
             if (ts.containsKey(currentYear)) {
