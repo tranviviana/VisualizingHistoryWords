@@ -135,7 +135,7 @@ public class NGramMapTest {
         // creates an NGramMap from a large dataset
         NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv",
                 "./data/ngrams/total_counts.csv");
-        TimeSeries weightedAirplane = ngm.weightHistory("airplane", 2007, 2008);
+        TimeSeries weightedAirplane = ngm.weightHistory("airport", 2007, 2008);
         weightedAirplane.years();
         List<Integer> yearsList = new ArrayList<>
                 (Arrays.asList(2007, 2008));
