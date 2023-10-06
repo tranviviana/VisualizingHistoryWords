@@ -26,7 +26,7 @@ public class HistoryTextHandler extends NgordnetQueryHandler {
         int endYear = q.endYear();
         String response = "";
         for (String word : words) {
-            response = word + ":";
+            response += word + ": ";
             timeSeriesPrinted = files.weightHistory(word, startYear, endYear);
             response += relativePopularityHistory(timeSeriesPrinted);
             response += "\n";
