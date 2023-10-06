@@ -71,5 +71,32 @@ public class NGramMapTest {
         double expectedFishPlusDogWeight1865 = (136497.0 + 75819.0) / 2563919231.0;
         assertThat(fishPlusDogWeight.get(1865)).isWithin(1E-10).of(expectedFishPlusDogWeight1865);
     }
+    @Test
+    public void testOnSmallFile() {
+        // creates an NGramMap from a large dataset
+        NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv",
+                "./data/ngrams/total_counts.csv");
 
+        // returns the count of the number of occurrences of fish per year between 1850 and 1933.
+        TimeSeries fishCount = ngm.countHistory("airport", 1850, 2009);
+        assertThat(fishCount.get(2007)).isWithin(1E-10).of(175702.0);
+
+        TimeSeries totalCounts = ngm.totalCountHistory();
+        assertThat(totalCounts.get(1865)).isWithin(1E-10).of(2563919231.0);
+
+        // returns the relative weight of the word fish in each year between 1850 and 1933.
+        TimeSeries fishWeight = ngm.weightHistory("airport", 1850, 2009);
+        assertThat(fishWeight.get(2007)).isWithin(1E-7).of(175702.0/28307904288.0);
+
+        TimeSeries dogCount = ngm.countHistory("request", 1850, 2008);
+        assertThat(dogCount.get(2006)).isWithin(1E-10).of(677820.0);
+
+        List<String> fishAndDog = new ArrayList<>();
+        fishAndDog.add("airport");
+        fishAndDog.add("request");
+        TimeSeries fishPlusDogWeight = ngm.summedWeightHistory(fishAndDog, 2007, 2007);
+
+        double expectedFishPlusDogWeight1865 = (175702.0 + 697645.0) / 28307904288.0;
+        assertThat(fishPlusDogWeight.get(1865)).isWithin(1E-10).of(expectedFishPlusDogWeight1865);
+    }
 }  
