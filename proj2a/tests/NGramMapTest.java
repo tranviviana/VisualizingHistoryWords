@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.In;
 import ngrams.NGramMap;
 import ngrams.TimeSeries;
 
@@ -39,6 +40,16 @@ public class NGramMapTest {
 
         for (int i = 0; i < expectedCounts.size(); i += 1) {
             assertThat(request2006to2007.data().get(i)).isWithin(1E-10).of(expectedCounts.get(i));
+        }
+        List<Double> expectedTotalValues = new ArrayList<>
+                (Arrays.asList(984.0, 117652.0, 328918.0, 20502.0));
+        List<Integer> expectedTotalYears = new ArrayList<>
+                (Arrays.asList(1470, 1472, 1475, 1476));
+
+        TimeSeries yearlyCounts = ngm.totalCountHistory();
+        for (int i = 0; i < expectedTotalValues.size(); i += 1) {
+            assertThat(yearlyCounts.data().get(i)).isWithin(1E-10).of(expectedTotalValues.get(i));
+            assertThat(yearlyCounts.years().get(i)).isEqualTo(expectedTotalYears.get(i));
         }
     }
 
@@ -119,6 +130,8 @@ public class NGramMapTest {
         assertThat(airportRequest.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
         assertThat(requestAirport.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
     }
+
+
 
 
 
