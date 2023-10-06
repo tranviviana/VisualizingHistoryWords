@@ -134,7 +134,7 @@ public class NGramMap {
         // TODO: Fill in this method.
         TimeSeries summedTimeSeries = new TimeSeries();
         for (String word : words) {
-            summedTimeSeries.plus(countHistory(word, startYear, endYear));
+            summedTimeSeries = summedTimeSeries.plus(countHistory(word, startYear, endYear) );
         }
         return summedTimeSeries;
     }

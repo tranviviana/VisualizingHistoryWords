@@ -81,12 +81,13 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     private TimeSeries addingSecond(TimeSeries unsummedTimeSeries) {
         List<Integer> currentYears = unsummedTimeSeries.years();
         for (int year: currentYears) {
-            if (unsummedTimeSeries.containsKey(year)) {
+            if (unsummedTimeSeries.containsKey(year) && get(year) != null) {
                 double summedValue = get(year) + unsummedTimeSeries.get(year);
                 unsummedTimeSeries.put(year, summedValue);
 
-            }
-            else {
+            } else if (unsummedTimeSeries.containsKey(year)) {
+                unsummedTimeSeries.put(year, unsummedTimeSeries.get(year));
+            } else {
                 unsummedTimeSeries.put(year, get(year));
             }
         }

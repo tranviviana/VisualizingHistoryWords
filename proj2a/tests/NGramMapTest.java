@@ -99,4 +99,23 @@ public class NGramMapTest {
         double expectedFishPlusDogWeight1865 = (175702.0 + 697645.0) / 28307904288.0;
         assertThat(fishPlusDogWeight.get(1865)).isWithin(1E-10).of(expectedFishPlusDogWeight1865);
     }
-}  
+    @Test
+    public void testAddingTwoWords() {
+        // creates an NGramMap from a large dataset
+        NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv",
+                "./data/ngrams/total_counts.csv");
+
+        // returns the count of the number of occurrences of fish per year between 1850 and 1933.
+        TimeSeries airportCount = ngm.countHistory("airport", 1850, 2009);
+        assertThat(airportCount.get(2007)).isWithin(1E-10).of(175702.0);
+
+        TimeSeries totalCounts = ngm.totalCountHistory();
+        assertThat(totalCounts.get(1865)).isWithin(1E-10).of(2563919231.0);
+        TimeSeries requestCount = ngm.countHistory("request", 1850, 2008);
+        assertThat(requestCount.get(2006)).isWithin(1E-10).of(677820.0);
+        TimeSeries airportRequest = airportCount.plus(requestCount);
+        TimeSeries requestAirport = requestCount.plus(airportRequest);
+        assertThat(airportRequest.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
+        assertThat(requestAirport.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
+    }
+}
