@@ -76,8 +76,7 @@ public class NGramMap {
      * returns an empty TimeSeries.
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
-        TimeSeries associatedTimeSeries = new TimeSeries();
-        associatedTimeSeries.putAll((TimeSeries) mapOfAllTimes.get(word));
+        TimeSeries associatedTimeSeries = (TimeSeries) mapOfAllTimes.get(word);
         return new TimeSeries(associatedTimeSeries, startYear, endYear);
     }
 
@@ -110,9 +109,7 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word, int startYear, int endYear) {
-        TimeSeries relativeTimeSeries = new TimeSeries();
-        relativeTimeSeries.putAll(countHistory(word, startYear, endYear).dividedBy(totalCountHistory()));
-        return relativeTimeSeries;
+        return (countHistory(word, startYear, endYear).dividedBy(totalCountHistory()));
     }
 
     /**

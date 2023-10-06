@@ -29,7 +29,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         super();
         int currentYear = startYear;
         while (currentYear <= endYear) {
-            if (ts.containsKey(currentYear)) {
+            if (ts != null && ts.containsKey(currentYear)) {
                 this.put(currentYear, ts.get(currentYear));
             }
             currentYear += 1;

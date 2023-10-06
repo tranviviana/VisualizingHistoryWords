@@ -130,9 +130,21 @@ public class NGramMapTest {
         assertThat(airportRequest.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
         assertThat(requestAirport.get(2007)).isWithin(1E-10).of(175702.0 + 697645.0);
     }
-
-
-
-
+    @Test
+    public void testWeightHistory() {
+        // creates an NGramMap from a large dataset
+        NGramMap ngm = new NGramMap("./data/ngrams/very_short.csv",
+                "./data/ngrams/total_counts.csv");
+        TimeSeries weightedAirplane = ngm.weightHistory("airplane", 2007, 2008);
+        weightedAirplane.years();
+        List<Integer> yearsList = new ArrayList<>
+                (Arrays.asList(2007, 2008));
+        List<Double> resultingHistory = new ArrayList<>
+                (Arrays.asList(175702.0 / 28307904288.0 , 173294.0/ 28752030034.0));
+        for (int i = 0; i < yearsList.size(); i += 1) {
+            assertThat(weightedAirplane.data().get(i)).isWithin(1E-10).of(resultingHistory.get(i));
+            assertThat(weightedAirplane.years().get(i)).isEqualTo(yearsList.get(i));
+        }
+    }
 
 }
