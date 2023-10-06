@@ -142,6 +142,7 @@ public class NGramMap {
         for (String word : words) {
             summedTimeSeries = summedTimeSeries.plus(countHistory(word, startYear, endYear) );
         }
+
         return summedTimeSeries;
     }
 
