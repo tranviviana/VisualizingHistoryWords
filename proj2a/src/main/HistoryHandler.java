@@ -7,9 +7,10 @@ import org.knowm.xchart.XYChart;
 import plotting.Plotter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryHandler extends NgordnetQueryHandler {
-    private NGramMap files;
+    private final NGramMap files;
     public HistoryHandler(NGramMap map) {
         files = map;
     }
@@ -17,10 +18,10 @@ public class HistoryHandler extends NgordnetQueryHandler {
     public String handle(NgordnetQuery q) {
         ArrayList<String> labels = new ArrayList<>();
         ArrayList<TimeSeries> lts = new ArrayList<>();
-        TimeSeries respectiveGraph = new TimeSeries();
-        q.words() = words;
-        q.startYear() = startYear();
-        q.endYear() = endYear();
+        TimeSeries respectiveGraph;
+        List<String> words = q.words();
+        int startYear = q.startYear();
+        int endYear = q.endYear();
         for (String word : words) {
             respectiveGraph = files.weightHistory(word, startYear, endYear);
             lts.add(respectiveGraph);
