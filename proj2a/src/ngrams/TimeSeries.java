@@ -13,7 +13,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
 
     public static final int MIN_YEAR = 1400;
     public static final int MAX_YEAR = 2100;
-
+    private int start;
+    private int end;
     /**
      * Constructs a new empty TimeSeries.
      */
@@ -27,6 +28,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     public TimeSeries(TimeSeries ts, int startYear, int endYear) {
         super();
+        start = startYear;
+        end = endYear;
         int currentYear = startYear;
         while (currentYear <= endYear) {
             if (ts.containsKey(currentYear)) {
@@ -72,27 +75,24 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
         TimeSeries unsummedTimeSeries = new TimeSeries();
-        if (ts.firstKey() == null && firstKey() == null) {
+        if (ts.years() == null && years() == null) {
             return null;
         }
-        unsummedTimeSeries.putAll(ts);
-        return addingSecond(unsummedTimeSeries);
-    }
-    private TimeSeries addingSecond(TimeSeries unsummedTimeSeries) {
-        List<Integer> currentYears = unsummedTimeSeries.years();
-        for (int year: currentYears) {
-            if (unsummedTimeSeries.containsKey(year) && get(year) != null) {
-                double summedValue = get(year) + unsummedTimeSeries.get(year);
-                unsummedTimeSeries.put(year, summedValue);
-
-            } else if (unsummedTimeSeries.containsKey(year)) {
-                unsummedTimeSeries.put(year, unsummedTimeSeries.get(year));
-            } else {
-                unsummedTimeSeries.put(year, get(year));
+        int i = MIN_YEAR;
+        while (i <= MAX_YEAR) {
+            if (containsKey(i) && ts.containsKey(i)) {
+                unsummedTimeSeries.put(i, get(i) + ts.get(i));
+            } else if (containsKey(i)) {
+                unsummedTimeSeries.put(i, get(i));
+            } else if (ts.containsKey(i)) {
+                unsummedTimeSeries.put(i, ts.get(i));
             }
+            i++;
         }
         return unsummedTimeSeries;
     }
+
+
 
     /**
      * Returns the quotient of the value for each year this TimeSeries divided by the
