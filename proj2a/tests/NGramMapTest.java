@@ -145,6 +145,13 @@ public class NGramMapTest {
             assertThat(weightedAirplane.data().get(i)).isWithin(1E-10).of(resultingHistory.get(i));
             assertThat(weightedAirplane.years().get(i)).isEqualTo(yearsList.get(i));
         }
+        TimeSeries weightedRequest = ngm.weightHistory("request");
+        yearsList = (Arrays.asList(2005, 2006, 2007, 2008));
+        resultingHistory = (Arrays.asList(646179.0/26609986084.0, 677820.0/27695491774.0, 697645.0/28307904288.0, 795265.0/28752030034.0));
+        for (int i = 0; i < yearsList.size(); i += 1) {
+            assertThat(weightedRequest.data().get(i)).isWithin(1E-10).of(resultingHistory.get(i));
+            assertThat(weightedRequest.years().get(i)).isEqualTo(yearsList.get(i));
+        }
     }
 
 }

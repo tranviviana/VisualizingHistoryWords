@@ -127,8 +127,7 @@ public class NGramMap {
      * TimeSeries.
      */
     public TimeSeries weightHistory(String word) {
-        weightHistory(word, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR);
-        return null;
+        return weightHistory(word, TimeSeries.MIN_YEAR, TimeSeries.MAX_YEAR);
     }
 
     /**
