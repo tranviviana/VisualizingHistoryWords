@@ -1,6 +1,4 @@
 package ngrams;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -105,8 +103,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         for (int year: currentYears) {
             if (!quotientTimeSeries.containsKey(year)) {
                 throw new IllegalArgumentException("nooooo");
-            }
-            else {
+            } else {
                 double quotient = get(year) / quotientTimeSeries.get(year);
                 completedSeries.put(year, quotient);
             }

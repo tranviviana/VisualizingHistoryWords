@@ -1,6 +1,5 @@
 package ngrams;
 import edu.princeton.cs.algs4.In;
-import java.sql.Time;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -52,7 +51,7 @@ public class NGramMap {
 
 
     /*creates a timeseries that associates years to the quantity of words from that year*/
-    private void totalWordCounter(String countsFileName){
+    private void totalWordCounter(String countsFileName) {
         In in = new In(countsFileName);
         while (in.hasNextLine()) {
             String nextLine = in.readLine();
@@ -70,7 +69,7 @@ public class NGramMap {
      */
     public TimeSeries countHistory(String word, int startYear, int endYear) {
         TimeSeries associatedTimeSeries = new TimeSeries();
-        if (mapOfAllTimes.containsKey(word)){
+        if (mapOfAllTimes.containsKey(word)) {
             associatedTimeSeries = (TimeSeries) mapOfAllTimes.get(word);
         }
         return new TimeSeries(associatedTimeSeries, startYear, endYear);
