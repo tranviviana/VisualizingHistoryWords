@@ -71,8 +71,8 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     public TimeSeries plus(TimeSeries ts) {
         // TODO: Fill in this method.
         TimeSeries unsummedTimeSeries = new TimeSeries();
-        if (ts.years() == null && years() == null) {
-            return null;
+        if (ts == null && this == null) {
+            return unsummedTimeSeries;
         }
         int i = MIN_YEAR;
         while (i <= MAX_YEAR) {
@@ -108,6 +108,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
     }
     private TimeSeries dividedByHelper(TimeSeries quotientTimeSeries) {
         List<Integer> currentYears = years();
+
         TimeSeries completedSeries = new TimeSeries();
         for (int year: currentYears) {
             if (!quotientTimeSeries.containsKey(year)) {
