@@ -34,14 +34,11 @@ public class TimeSeries extends TreeMap<Integer, Double> {
             }
             currentYear += 1;
         }
-        // TODO: Fill in this constructor.
     }
-
     /**
      * Returns all years for this TimeSeries (in any order).
      */
     public List<Integer> years() {
-        // TODO: Fill in this method.
         List<Integer> yearsList = new ArrayList<>(navigableKeySet());
         return yearsList;
     }
@@ -69,11 +66,7 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      * should store the value from the TimeSeries that contains that year.
      */
     public TimeSeries plus(TimeSeries ts) {
-        // TODO: Fill in this method.
         TimeSeries unsummedTimeSeries = new TimeSeries();
-        if (ts == null && this == null) {
-            return unsummedTimeSeries;
-        }
         int i = MIN_YEAR;
         while (i <= MAX_YEAR) {
             if (containsKey(i) && ts.containsKey(i)) {
@@ -101,7 +94,6 @@ public class TimeSeries extends TreeMap<Integer, Double> {
      */
     //in the beginning quotientTimeSeries has all of ts so if it doesnt contain our year throw an error.
     public TimeSeries dividedBy(TimeSeries ts) {
-        // TODO: Fill in this method.
         TimeSeries quotientTimeSeries = new TimeSeries();
         quotientTimeSeries.putAll(ts);
         return dividedByHelper(quotientTimeSeries);
@@ -122,7 +114,4 @@ public class TimeSeries extends TreeMap<Integer, Double> {
         return completedSeries;
 
     }
-
-    // TODO: Add any private helper methods.
-    // TODO: Remove all TODO comments before submitting.
 }
