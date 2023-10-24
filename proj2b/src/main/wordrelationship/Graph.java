@@ -1,38 +1,26 @@
 package main.wordrelationship;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 
+//map id to word
+//map word to connection
 public class Graph<T> {
-    private final List<Integer> vertices;
-    private int numberOfEdges;
-    public Graph(Integer idNumbers) {
-        vertices = new ArrayList<>(idNumbers);
-        numberOfEdges = 0;
-    }
-    /* v is representative of the hypernym, w is representative of the hyponym w is pointing to v*/
-    /*set the hyponyms value to the index of the hypernym child value is index of parent*/
-    /*v is the hypernym index (element), w is the hyponym index)*/
-    public void addEdge(int v, int w) {
-        vertices.set(w,v);
-        numberOfEdges++;
-    }
-    public List<Integer> getChildren(int v) {
-        int i = 0;
-        List<Integer> childrenIds = new ArrayList<>();
-        while (i < vertices.size()) {
-            if (vertices.get(i) == v) {
-                childrenIds.add(i);
-            }
-            i++;
-        }
-        return childrenIds;
-    }
-    public int edgeReturn() {
-        return numberOfEdges;
-    }
-    public int verticesReturn() {
-        return vertices.size();
-    }
+    private HashMap<Integer, Collection<Integer>> adjacentChildren;
+    private HashMap<Integer, String> connectionToDefinition;
 
+    public Graph() {
+        adjacentChildren = new HashMap<>();
+        connectionToDefinition = new HashMap<>();
+
+    }
+    public void nameOfVertex(int id, String word) {
+        connectionToDefinition.put(id,word);
+    }
+    public void addEdge(int id, int child) {
+        Collection<Integer> currentChildren = adjacentChildren.remove(id);
+        currentChildren.add(child);
+        adjacentChildren.put(id, currentChildren);
+    }
 }
+
