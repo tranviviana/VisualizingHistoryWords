@@ -9,6 +9,8 @@ import java.util.List;
 //map word to connection
 public class Graph<T> {
     //connecting to children
+    int minimumID = 0;
+    int maxmiumID; 
     private HashMap<Collection<String>, Collection<String>> adjacentChildren;
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;
@@ -33,9 +35,7 @@ public class Graph<T> {
         return connectionToDefinition.get(id).toString();
     }
     public Collection<String> getChildren (String parent) {
-        for (Collection<String> key :) {
 
-        }
         return alphabetize(adjacentChildren.get(parent), parent);
     }
     //need to alphabetize and what if the name is 2 words
