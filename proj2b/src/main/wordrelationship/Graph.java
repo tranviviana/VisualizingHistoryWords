@@ -9,33 +9,41 @@ import java.util.List;
 //map word to connection
 public class Graph<T> {
     //connecting to children
-    private HashMap<String, Collection<String>> adjacentChildren;
+    private HashMap<Collection<String>, Collection<String>> adjacentChildren;
     //each "node" is a name
-    private HashMap<Integer, String> connectionToDefinition;
+    private HashMap<Integer, Collection<String>> connectionToDefinition;
 
     public Graph() {
         adjacentChildren = new HashMap<>();
         connectionToDefinition = new HashMap<>();
     }
     public void nameOfVertex(int id, String word) {
-        connectionToDefinition.put(id,word);
+        Collection<String> nameList = connectionToDefinition.remove(id);
+        nameList.add(word);
+        connectionToDefinition.put(id,nameList);
     }
     public void addEdge(int id, int child) {
-        String parentName = connectionToDefinition.get(id);
-        String childName = connectionToDefinition.get(child);
+        Collection<String> parentName = connectionToDefinition.get(id);
+        Collection<String> childName = connectionToDefinition.get(child);
         Collection<String> currentChildren = adjacentChildren.remove(parentName);
-        currentChildren.add(childName);
+        currentChildren.add(childName.toString());
         adjacentChildren.put(parentName, currentChildren);
     }
     public String getNodeName (int id) {
-        return connectionToDefinition.get(id);
+        return connectionToDefinition.get(id).toString();
     }
     public Collection<String> getChildren (String parent) {
+        for ()
         return alphabetize(adjacentChildren.get(parent), parent);
     }
+    //need to alphabetize and what if the name is 2 words
     private Collection<String> alphabetize(Collection<String> childrenUnordered, String parent) {
         List<String> allWords = new ArrayList<>();
-        
+        for (String word : childrenUnordered) {
+            allWords.add(word);
+        }
+        allWords.add(parent);
+        return allWords;
     }
     public boolean existenceOfWord (String word) {
         return connectionToDefinition.containsValue(word);
