@@ -33,7 +33,9 @@ public class Graph<T> {
         return connectionToDefinition.get(id).toString();
     }
     public Collection<String> getChildren (String parent) {
-        for ()
+        for (Collection<String> key :) {
+
+        }
         return alphabetize(adjacentChildren.get(parent), parent);
     }
     //need to alphabetize and what if the name is 2 words
