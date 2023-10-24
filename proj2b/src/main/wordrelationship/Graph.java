@@ -5,19 +5,23 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+
+//ADJACENCY LIST APPROACH
+
 //map id to word
 //map word to connection
 public class Graph<T> {
     //connecting to children
     int minimumID = 0;
-    int maxmiumID; 
+    int maxmiumID;
     private HashMap<Collection<String>, Collection<String>> adjacentChildren;
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;
 
-    public Graph() {
+    public Graph(int size) {
         adjacentChildren = new HashMap<>();
         connectionToDefinition = new HashMap<>();
+        maxmiumID = size - 1;
     }
     public void nameOfVertex(int id, String word) {
         Collection<String> nameList = connectionToDefinition.remove(id);
@@ -34,13 +38,20 @@ public class Graph<T> {
     public String getNodeName (int id) {
         return connectionToDefinition.get(id).toString();
     }
-    public Collection<String> getChildren (String parent) {
 
+   /* ??????? how to add multiple children?????? */
+    public Collection<String> getChildren (String parent) {
+        Collection<String> allWords = new ArrayList<>();
+        for (int counter = 0; counter < maxmiumID; counter ++) {
+            if (getNodeName(counter).contains(parent)) {
+                allWords = allWords.(connectionToDefinition.get(counter))
+            }
+        }
         return alphabetize(adjacentChildren.get(parent), parent);
     }
     //need to alphabetize and what if the name is 2 words
     private Collection<String> alphabetize(Collection<String> childrenUnordered, String parent) {
-        List<String> allWords = new ArrayList<>();
+        Collection<String> allWords = new ArrayList<>();
         for (String word : childrenUnordered) {
             allWords.add(word);
         }
