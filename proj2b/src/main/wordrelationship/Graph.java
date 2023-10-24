@@ -11,8 +11,10 @@ public class Graph<T> {
         numberOfEdges = 0;
     }
     /* v is representative of the hypernym, w is representative of the hyponym w is pointing to v*/
+    /*set the hyponyms value to the index of the hypernym child value is index of parent*/
+    /*v is the hypernym index (element), w is the hyponym index)*/
     public void addEdge(int v, int w) {
-        vertices.set(w, v);
+        vertices.set(w,v);
         numberOfEdges++;
     }
     public List<Integer> getChildren(int v) {
