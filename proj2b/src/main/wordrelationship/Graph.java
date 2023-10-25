@@ -54,18 +54,19 @@ public class Graph {
 //        }
 //    }
     //need to work till bottom***************************************************************************************** recursion?
-    private Collection<Integer> getChildrenIds(String parentNode) {
+    public Collection<String> getChildrenIds(Collection<String> parentNode) {
         if (parentNode == null) {
-            return totalIds.addAll(connectionToId.get(parentNode));
+            return getChildrenNames(totalIds);
         }
         occurrences = connectionToId.get(parentNode);
-        for (int sibling : occurrences) {
-            totalIds.addAll(adjacentChildren.get(sibling));
-        }
         totalIds.addAll(occurrences);
+        for (int sibling : occurrences) {
+            Collection<String> siblingNames = connectionToDefinition.get(sibling);
+            getChildrenIds(siblingNames);
+        }
 
     }
-    public Collection<String> getChildrenNames(Collection<Integer> totalIds) {
+    private Collection<String> getChildrenNames(Collection<Integer> totalIds) {
         List<String> allWords = new ArrayList<>();
         for (int id : totalIds) {
             allWords.addAll(connectionToDefinition.get(id));
