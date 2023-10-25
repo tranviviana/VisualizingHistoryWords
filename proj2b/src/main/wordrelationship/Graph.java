@@ -15,7 +15,7 @@ public class Graph {
     private HashMap<Integer, Collection<String>> connectionToDefinition;
     private HashMap<String, Collection<Integer>> connectionToId;
     private Collection<Integer> totalIds;
-    private Collection<Integer> occurrences;
+    private Collection<String> familyHeirarchy;
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
@@ -54,19 +54,27 @@ public class Graph {
 //        }
 //    }
     //need to work till bottom***************************************************************************************** recursion?
-    public Collection<String> getChildrenIds(Collection<String> parentNode) {
-        if (parentNode == null) {
-            return getChildrenNames(totalIds);
-        }
-        occurrences = connectionToId.get(parentNode);
-        totalIds.addAll(occurrences);
+    public Collection<String> getFamily(String parentNode) {
+        Collection<Integer> occurrences = connectionToId.get(parentNode);
+        this.totalIds = new ArrayList<>();
+        this.familyHeirarchy = new ArrayList<>();
         for (int sibling : occurrences) {
-            Collection<String> siblingNames = connectionToDefinition.get(sibling);
-            getChildrenIds(siblingNames);
+            getChildren(sibling);
         }
-
+        totalIds.addAll(occurrences);
+        return getNames(totalIds);
     }
-    private Collection<String> getChildrenNames(Collection<Integer> totalIds) {
+    private void  getChildren(int siblingId) {
+        totalIds.add(siblingId);
+        if (adjacentChildren.get(siblingId) == null) {
+            return;
+        }
+        for (int grandchild: adjacentChildren.get(siblingId)) {
+            getChildren(grandchild);
+        }
+    }
+    //convert all the ids to names and sorts them
+    private Collection<String> getNames(Collection<Integer> totalIds) {
         List<String> allWords = new ArrayList<>();
         for (int id : totalIds) {
             allWords.addAll(connectionToDefinition.get(id));

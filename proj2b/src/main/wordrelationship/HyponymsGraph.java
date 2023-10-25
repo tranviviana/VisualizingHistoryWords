@@ -53,7 +53,7 @@ public class HyponymsGraph {
         }
     }
     public Collection<String> hyponyms (String parent) {
-        return synsetsGraph.getChildren(parent);
+        return synsetsGraph.getFamily(parent);
     }
 
 }
