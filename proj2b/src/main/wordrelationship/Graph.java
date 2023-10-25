@@ -10,7 +10,6 @@ import java.util.*;
 //map id to word
 //map word to connection
 public class Graph<T> {
-    private Collection<Integer> childrenIds;
     private HashMap<Integer, Collection<Integer>> adjacentChildren;
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;
@@ -24,6 +23,11 @@ public class Graph<T> {
 
     //adds the name of the word to accessible key
     public void addDefinitionSingle(int id, String word) {
+        if (!connectionToDefinition.containsKey(id)) {
+            Collection<String> definitionList = new ArrayList<>();
+            definitionList.add(word);
+            connectionToDefinition.put(id, definitionList);
+        }
         if (!connectionToDefinition.get(id).contains(word)) {
             connectionToDefinition.get(id).add(word);
         }
@@ -32,15 +36,20 @@ public class Graph<T> {
     //each word is connected to a certain id or multiple ids
     //adds the string's id to its occurences
     public void addIDSingle(String word, int id) {
+        if (!connectionToID.containsKey(word)) {
+            Collection<Integer> idList = new ArrayList<>();
+            idList.add(id);
+            connectionToID.put(word, idList);
+        }
         if (!connectionToID.get(word).contains(id)) {
             connectionToID.get(word).add(id);
         }
     }
     //adds the name of WORDSSSS to accessible key
     public void addDefinitionMultiple(int id, Collection<String> words) {
-        connectionToDefinition.put(id, words);
         for (String word : words) {
             addIDSingle(word, id);
+            addDefinitionSingle(id, word);
         }
     }
 
@@ -57,6 +66,21 @@ public class Graph<T> {
         }
         Collections.sort(allWords);
         return allWords.toString();
+    }
+    private void individualaddRelationships (int mainNumber, int number) {
+        if (!adjacentChildren.containsKey(mainNumber)) {
+            childrenIds = new ArrayList<>();
+            childrenIds.add(number);
+            adjacentChildren.put(mainNumber , childrenIds);
+        }
+        if (!adjacentChildren.get(mainNumber).contains(number)) {
+            adjacentChildren.get(mainNumber).add(number);
+        }
+    }
+    private void addRelationships (int mainNumber, Collection<Integer> family) {
+        for (int number : family) {
+            individualaddRelationships(mainNumber, number);
+        }
     }
 
 }
