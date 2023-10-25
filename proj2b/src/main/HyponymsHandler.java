@@ -4,24 +4,23 @@ import browser.NgordnetQuery;
 import browser.NgordnetQueryHandler;
 import main.wordrelationship.Graph;
 import main.wordrelationship.HyponymsGraph;
-import ngrams.NGramMap;
+
+import java.util.List;
 
 
 public class HyponymsHandler extends NgordnetQueryHandler {
-    private final NGramMap files;
-    private Graph graphPrintable;
-   public HyponymsHandler(NGramMap map) {
-       files = map;
-       graphPrintable = new Graph();
+    private final HyponymsGraph hg;
+
+   public HyponymsHandler(HyponymsGraph hg) {
+       this.hg = hg;
    }
     @Override
     public String handle(NgordnetQuery q) {
-        new
         List<String> words = q.words();
         StringBuilder response = new StringBuilder();
         for (String word : words) {
-
+            response.append(hg.hyponyms(word));
         }
-        return null;
+        return response.toString();
     }
 }

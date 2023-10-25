@@ -1,6 +1,7 @@
 package main;
 
 import browser.NgordnetServer;
+import main.wordrelationship.HyponymsGraph;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,9 +14,12 @@ public class Main {
         NGramMap ngm = new NGramMap(wordFile, countFile);
 
         */
+        String hyponymFile = "./data/wordnet/hyponyms11.txt";
+        String synsetsFile = "./data/wordnet/synsets11.txt";
+        HyponymsGraph hg = new HyponymsGraph(hyponymFile, synsetsFile);
 
         hns.startUp();
-        hns.register("hyponyms", new HyponymsHandler());
+        hns.register("hyponyms", new HyponymsHandler(hg));
         hns.register("history", new DummyHistoryHandler());
         hns.register("historytext", new DummyHistoryTextHandler());
 
