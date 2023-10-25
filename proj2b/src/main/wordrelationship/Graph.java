@@ -61,7 +61,7 @@ public class Graph {
             adjacentChildren.get(mainNumber).add(number);
         }
     }
-
+    //looks at all the occurences and works down from their
     public Collection<String> getFamily(String parentNode) {
         Collection<Integer> occurrences = new ArrayList<>();
         occurrences.addAll(connectionToId.get(parentNode));
@@ -70,7 +70,7 @@ public class Graph {
         }
         return getNames(totalIds);
     }
-
+    //working down from all the occurences nodes
     private void getChildren(int siblingId) {
         totalIds.add(siblingId);
         if (adjacentChildren.get(siblingId) == null) {
@@ -93,7 +93,7 @@ public class Graph {
         }
         return removeRepeats(allWords);
     }
-
+    //creates an array of unique items
     private Collection<String> removeRepeats(List<String> allWords) {
         Collection<String> uniqueWords = new ArrayList<>();
         for (int i = 0; i < allWords.toArray().length; i++) {
