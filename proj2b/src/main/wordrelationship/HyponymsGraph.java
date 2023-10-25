@@ -32,7 +32,7 @@ public class HyponymsGraph {
             int i = 1;
             int sizeSplit = splitLine.length;
             while (i < sizeSplit) {
-                synsetsGraph.individualaddRelationships((Integer.parseInt(splitLine[0])), Integer.parseInt(splitLine[i]));
+                synsetsGraph.individualAddRelationships((Integer.parseInt(splitLine[0])), Integer.parseInt(splitLine[i]));
                 i++;
             }
             nextLine = relationIn.readLine();
