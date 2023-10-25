@@ -15,11 +15,11 @@ public class Graph {
     private HashMap<Integer, Collection<String>> connectionToDefinition;
     private HashMap<String, Collection<Integer>> connectionToId;
     private Collection<Integer> totalIds;
-    private Collection<String> familyHeirarchy;
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
         this.connectionToId = new HashMap<>();
+        this.totalIds = new ArrayList<>();
     }
 
     //adds the name of the word to accessible key
@@ -55,13 +55,11 @@ public class Graph {
 //    }
     //need to work till bottom***************************************************************************************** recursion?
     public Collection<String> getFamily(String parentNode) {
-        Collection<Integer> occurrences = connectionToId.get(parentNode);
-        this.totalIds = new ArrayList<>();
-        this.familyHeirarchy = new ArrayList<>();
+        Collection<Integer> occurrences = new ArrayList<>();
+        occurrences.addAll(connectionToId.get(parentNode));
         for (int sibling : occurrences) {
             getChildren(sibling);
         }
-        totalIds.addAll(occurrences);
         return getNames(totalIds);
     }
     private void  getChildren(int siblingId) {
