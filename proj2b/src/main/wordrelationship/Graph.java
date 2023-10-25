@@ -14,7 +14,7 @@ public class Graph {
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;
     private HashMap<String, Collection<Integer>> connectionToId;
-
+    private Collection<Integer> totalIds;
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
@@ -68,11 +68,13 @@ public class Graph {
         return allWords;
     }
 
+
     public void individualaddRelationships (int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
             Collection<Integer> childrenIds = new ArrayList<>();
             childrenIds.add(number);
             adjacentChildren.put(mainNumber , childrenIds);
+            
         }
         if (!adjacentChildren.get(mainNumber).contains(number)) {
             adjacentChildren.get(mainNumber).add(number);
