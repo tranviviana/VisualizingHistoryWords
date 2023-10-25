@@ -15,6 +15,7 @@ public class Graph {
     private HashMap<Integer, Collection<String>> connectionToDefinition;
     private HashMap<String, Collection<Integer>> connectionToId;
     private Collection<Integer> totalIds;
+    private Collection<Integer> occurrences;
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
@@ -52,21 +53,29 @@ public class Graph {
 //            addDefinitionSingle(id, word);
 //        }
 //    }
-    //need to work till bottom
-    public Collection<String> getChildren(String parentNode) {
-        Collection<Integer> occurrences = connectionToId.get(parentNode);
-        Collection<Integer> totalIds = new ArrayList<>();
-        List<String> allWords = new ArrayList<>();
+    //need to work till bottom***************************************************************************************** recursion?
+    private Collection<Integer> getChildrenIds(String parentNode) {
+        if (parentNode == null) {
+            return totalIds.addAll(connectionToId.get(parentNode));
+        }
+        occurrences = connectionToId.get(parentNode);
         for (int sibling : occurrences) {
             totalIds.addAll(adjacentChildren.get(sibling));
         }
         totalIds.addAll(occurrences);
+
+    }
+    public Collection<String> getChildrenNames(Collection<Integer> totalIds) {
+        List<String> allWords = new ArrayList<>();
         for (int id : totalIds) {
             allWords.addAll(connectionToDefinition.get(id));
         }
-        Collections.sort(allWords);
+        if (!allWords.isEmpty()) {
+            Collections.sort(allWords);
+        }
         return allWords;
     }
+
 
 
     public void individualaddRelationships (int mainNumber, int number) {
@@ -74,7 +83,7 @@ public class Graph {
             Collection<Integer> childrenIds = new ArrayList<>();
             childrenIds.add(number);
             adjacentChildren.put(mainNumber , childrenIds);
-            
+
         }
         if (!adjacentChildren.get(mainNumber).contains(number)) {
             adjacentChildren.get(mainNumber).add(number);
