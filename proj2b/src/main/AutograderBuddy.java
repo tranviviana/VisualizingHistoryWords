@@ -13,5 +13,5 @@ public class AutograderBuddy {
 
         return new HyponymsHandler(hg);
     }
-    
+
 }
