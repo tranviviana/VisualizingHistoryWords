@@ -13,12 +13,12 @@ public class Graph {
     private HashMap<Integer, Collection<Integer>> adjacentChildren;
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;
-    private HashMap<String, Collection<Integer>> connectionToID;
+    private HashMap<String, Collection<Integer>> connectionToId;
 
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
-        this.connectionToID = new HashMap<>();
+        this.connectionToId = new HashMap<>();
     }
 
     //adds the name of the word to accessible key
@@ -36,13 +36,13 @@ public class Graph {
     //each word is connected to a certain id or multiple ids
     //adds the string's id to its occurences
     private void addIDSingle(String word, int id) {
-        if (!connectionToID.containsKey(word)) {
+        if (!connectionToId.containsKey(word)) {
             Collection<Integer> idList = new ArrayList<>();
             idList.add(id);
-            connectionToID.put(word, idList);
+            connectionToId.put(word, idList);
         }
-        if (!connectionToID.get(word).contains(id)) {
-            connectionToID.get(word).add(id);
+        if (!connectionToId.get(word).contains(id)) {
+            connectionToId.get(word).add(id);
         }
     }
 //    //adds the name of WORDSSSS to accessible key
@@ -52,9 +52,9 @@ public class Graph {
 //            addDefinitionSingle(id, word);
 //        }
 //    }
-
+    //need to work till bottom
     public Collection<String> getChildren(String parentNode) {
-        Collection<Integer> occurrences = connectionToID.get(parentNode);
+        Collection<Integer> occurrences = connectionToId.get(parentNode);
         Collection<Integer> totalIds = new ArrayList<>();
         List<String> allWords = new ArrayList<>();
         for (int sibling : occurrences) {
@@ -67,6 +67,7 @@ public class Graph {
         Collections.sort(allWords);
         return allWords;
     }
+
     public void individualaddRelationships (int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
             Collection<Integer> childrenIds = new ArrayList<>();
