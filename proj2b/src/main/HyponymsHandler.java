@@ -2,7 +2,6 @@ package main;
 
 import browser.NgordnetQuery;
 import browser.NgordnetQueryHandler;
-import main.wordrelationship.Graph;
 import main.wordrelationship.HyponymsGraph;
 
 import java.util.List;
