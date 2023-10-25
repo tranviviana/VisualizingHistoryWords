@@ -28,4 +28,35 @@ public class TestOneWordK0Hyponyms {
     }
 
     // TODO: Add more unit tests (including edge case tests) here.
+    public void testBottomNode() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words = List.of("leap");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[jump, leap, saltation]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    public void testTopNode() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words = List.of("event");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[act, action, adjustment, alteration, change, conversion, demotion, event, flashback, happening, human_action, human_activity, increase, leap, modification, mutation, natural_event, occurrence, occurrent, saltation, transition, transition, variation]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    public void testMultiple() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words = List.of("change");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[alteration, change, demotion, increase, jump, leap, modification, saltation, transition, variation]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }
