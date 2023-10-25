@@ -9,7 +9,7 @@ import java.util.*;
 
 //map id to word
 //map word to connection
-public class Graph<T> {
+public class Graph {
     private HashMap<Integer, Collection<Integer>> adjacentChildren;
     //each "node" is a name
     private HashMap<Integer, Collection<String>> connectionToDefinition;

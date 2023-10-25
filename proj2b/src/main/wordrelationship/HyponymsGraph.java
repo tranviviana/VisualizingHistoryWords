@@ -17,7 +17,7 @@ public class HyponymsGraph {
     private Graph synsetsGraph;
 
     public HyponymsGraph(String hyponymsFiles, String synsetsFiles) {
-        this.synsetsGraph = new Graph<>();
+        this.synsetsGraph = new Graph();
         In relationIn = new In(hyponymsFiles);
         relationshipCreator(relationIn);
         In synIn = new In(synsetsFiles);
@@ -50,9 +50,8 @@ public class HyponymsGraph {
             }
         }
     }
-    public Collection<String> hyponyms (String parent) {
-        Collection children = synsetsGraph.getChildren(parent);
-        return children;
-    }
+//    public Collection<String> hyponyms (String parent) {
+//        return synsetsGraph.getChildren(parent);
+//    }
 
 }
