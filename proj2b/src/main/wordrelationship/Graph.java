@@ -16,6 +16,7 @@ public class Graph {
     private HashMap<Integer, Collection<String>> connectionToDefinition;
     private HashMap<String, Collection<Integer>> connectionToId;
     private Collection<Integer> totalIds;
+
     public Graph() {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
@@ -35,6 +36,7 @@ public class Graph {
         }
         addIDSingle(word, id);
     }
+
     //each word is connected to a certain id or multiple ids
     //adds the string's id to its occurrences
     private void addIDSingle(String word, int id) {
@@ -47,17 +49,19 @@ public class Graph {
             connectionToId.get(word).add(id);
         }
     }
-    public void individualAddRelationships (int mainNumber, int number) {
+
+    public void individualAddRelationships(int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
             Collection<Integer> childrenIds = new ArrayList<>();
             childrenIds.add(number);
-            adjacentChildren.put(mainNumber , childrenIds);
+            adjacentChildren.put(mainNumber, childrenIds);
 
         }
         if (!adjacentChildren.get(mainNumber).contains(number)) {
             adjacentChildren.get(mainNumber).add(number);
         }
     }
+
     public Collection<String> getFamily(String parentNode) {
         Collection<Integer> occurrences = new ArrayList<>();
         occurrences.addAll(connectionToId.get(parentNode));
@@ -66,15 +70,17 @@ public class Graph {
         }
         return getNames(totalIds);
     }
-    private void  getChildren(int siblingId) {
+
+    private void getChildren(int siblingId) {
         totalIds.add(siblingId);
         if (adjacentChildren.get(siblingId) == null) {
             return;
         }
-        for (int grandchild: adjacentChildren.get(siblingId)) {
+        for (int grandchild : adjacentChildren.get(siblingId)) {
             getChildren(grandchild);
         }
     }
+
     //convert all the ids to names and sorts them
     private Collection<String> getNames(Collection<Integer> totalIds) {
         List<String> allWords = new ArrayList<>() {
@@ -87,18 +93,16 @@ public class Graph {
         }
         return removeRepeats(allWords);
     }
+
     private Collection<String> removeRepeats(List<String> allWords) {
         Collection<String> uniqueWords = new ArrayList<>();
-        for (int i = 0; i < allWords.toArray().length - 1; i += 1) {
-            if (allWords.get(i).equals(allWords.get(i + 1))){
-                uniqueWords.add(allWords.get(i + 1));
-            }
-            else {
+        for (int i = 0; i < allWords.toArray().length; i++) {
+            if (!uniqueWords.contains(allWords.get(i))) {
                 uniqueWords.add(allWords.get(i));
             }
         }
         return uniqueWords;
-
     }
 }
+
 
