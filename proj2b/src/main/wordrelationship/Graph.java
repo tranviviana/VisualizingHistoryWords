@@ -22,7 +22,7 @@ public class Graph<T> {
     }
 
     //adds the name of the word to accessible key
-    private void addDefinitionSingle(int id, String word) {
+    public void addDefinitionSingle(int id, String word) {
         if (!connectionToDefinition.containsKey(id)) {
             Collection<String> definitionList = new ArrayList<>();
             definitionList.add(word);
@@ -45,13 +45,13 @@ public class Graph<T> {
             connectionToID.get(word).add(id);
         }
     }
-    //adds the name of WORDSSSS to accessible key
-    public void addDefinitionMultiple(int id, Collection<String> words) {
-        for (String word : words) {
-            addIDSingle(word, id);
-            addDefinitionSingle(id, word);
-        }
-    }
+//    //adds the name of WORDSSSS to accessible key
+//    public void addDefinitionMultiple(int id, Collection<String> words) {
+//        for (String word : words) {
+//            addIDSingle(word, id);
+//            addDefinitionSingle(id, word);
+//        }
+//    }
 
     public String getChildren(String parentNode) {
         Collection<Integer> occurrences = connectionToID.get(parentNode);

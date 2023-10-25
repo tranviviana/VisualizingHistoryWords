@@ -41,7 +41,15 @@ public class HyponymsGraph {
 
     }
     private void definitionCreator(In synIn) {
-
+        String nextLine = synIn.readLine();
+        while (synIn.hasNextLine()) {
+            String[] splitLine = nextLine.split(",");
+            int id = Integer.parseInt(splitLine[0]);
+            String [] definition = splitLine[1].split(" ");
+            for (String word : splitLine) {
+                synsetsGraph.addDefinitionSingle(id, word);
+            }
+        }
     }
-
+    
 }
