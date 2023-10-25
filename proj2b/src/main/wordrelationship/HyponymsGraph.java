@@ -15,10 +15,10 @@ import java.util.HashMap;
  */
 
 public class HyponymsGraph {
-    private Graph synsets;
+    private Graph synsetsGraph;
 
     public HyponymsGraph(String hyponymsFiles, String synsetsFiles) {
-        this.synsets = new Graph<>();
+        this.synsetsGraph = new Graph<>();
         In relationIn = new In(hyponymsFiles);
         relationshipCreator(relationIn);
         In synIn = new In(synsetsFiles);
@@ -30,9 +30,12 @@ public class HyponymsGraph {
         String nextLine = relationIn.readLine();
         while (relationIn.hasNextLine()) {
             String[] splitLine = nextLine.split(",");
-            int currentIndex = 1;
+            int i = 0;
             int sizeSplit = splitLine.length;
-            synsets.
+            while (i < sizeSplit) {
+                i++;
+                synsetsGraph.individualaddRelationships((Integer.parseInt(splitLine[0])), Integer.parseInt(splitLine[i]));
+            }
         }
 
 

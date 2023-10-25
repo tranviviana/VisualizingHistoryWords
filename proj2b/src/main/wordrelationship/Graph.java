@@ -22,7 +22,7 @@ public class Graph<T> {
     }
 
     //adds the name of the word to accessible key
-    public void addDefinitionSingle(int id, String word) {
+    private void addDefinitionSingle(int id, String word) {
         if (!connectionToDefinition.containsKey(id)) {
             Collection<String> definitionList = new ArrayList<>();
             definitionList.add(word);
@@ -35,7 +35,7 @@ public class Graph<T> {
     }
     //each word is connected to a certain id or multiple ids
     //adds the string's id to its occurences
-    public void addIDSingle(String word, int id) {
+    private void addIDSingle(String word, int id) {
         if (!connectionToID.containsKey(word)) {
             Collection<Integer> idList = new ArrayList<>();
             idList.add(id);
@@ -53,7 +53,7 @@ public class Graph<T> {
         }
     }
 
-    private String getChildren(String parentNode) {
+    public String getChildren(String parentNode) {
         Collection<Integer> occurrences = connectionToID.get(parentNode);
         Collection<Integer> totalIds = new ArrayList<>();
         List<String> allWords = new ArrayList<>();
@@ -67,9 +67,9 @@ public class Graph<T> {
         Collections.sort(allWords);
         return allWords.toString();
     }
-    private void individualaddRelationships (int mainNumber, int number) {
+    public void individualaddRelationships (int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
-            childrenIds = new ArrayList<>();
+            Collection<Integer> childrenIds = new ArrayList<>();
             childrenIds.add(number);
             adjacentChildren.put(mainNumber , childrenIds);
         }
@@ -77,11 +77,11 @@ public class Graph<T> {
             adjacentChildren.get(mainNumber).add(number);
         }
     }
-    private void addRelationships (int mainNumber, Collection<Integer> family) {
-        for (int number : family) {
-            individualaddRelationships(mainNumber, number);
-        }
-    }
+//    public void addRelationships (int mainNumber, Collection<Integer> family) {
+//        for (int number : family) {
+//            individualaddRelationships(mainNumber, number);
+//        }
+//    }
 
 }
 
