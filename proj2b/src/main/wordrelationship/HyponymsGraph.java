@@ -1,7 +1,6 @@
 package main.wordrelationship;
 import edu.princeton.cs.algs4.In;
 import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * An object that provides utility methods for making queries on the
@@ -51,5 +50,9 @@ public class HyponymsGraph {
             }
         }
     }
-    
+    public Collection<String> hyponyms (String parent) {
+        Collection children = synsetsGraph.getChildren(parent);
+        return children;
+    }
+
 }

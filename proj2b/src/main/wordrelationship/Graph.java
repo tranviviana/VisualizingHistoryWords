@@ -53,7 +53,7 @@ public class Graph<T> {
 //        }
 //    }
 
-    public String getChildren(String parentNode) {
+    public Collection<String> getChildren(String parentNode) {
         Collection<Integer> occurrences = connectionToID.get(parentNode);
         Collection<Integer> totalIds = new ArrayList<>();
         List<String> allWords = new ArrayList<>();
@@ -65,7 +65,7 @@ public class Graph<T> {
             allWords.addAll(connectionToDefinition.get(id));
         }
         Collections.sort(allWords);
-        return allWords.toString();
+        return allWords;
     }
     public void individualaddRelationships (int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
