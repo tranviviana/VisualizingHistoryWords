@@ -54,8 +54,8 @@ public class HyponymsGraph {
             }
         }
     }
-    public List<String> hyponyms (List<String> Parents) {
-
+    public List<String> hyponyms (List<String> parents) {
+        return synsetsGraph.getSimilarFamily(parents);
     }
 //    public List<String> hyponyms (String parent) {
 //        return synsetsGraph.getFamily(parent);

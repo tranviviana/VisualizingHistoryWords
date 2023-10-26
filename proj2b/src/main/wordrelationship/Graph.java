@@ -83,7 +83,7 @@ public class Graph {
 
     //looks at all the occurences and works down from their
     //works for individual words
-    public List<String> getFamily(String parentNode) {
+    private List<String> getFamily(String parentNode) {
         List<Integer> occurrences = new ArrayList<>();
         if (connectionToId.get(parentNode) == null) {
             return new ArrayList<>();
