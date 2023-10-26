@@ -74,8 +74,7 @@ public class Graph {
             } else if (getFamily(i).size() < minimumSize) {
                 minimumFamily = getFamily(i);
                 minimumSize = getFamily(i).size();
-            }
-            else {
+            } else {
                 maximumFamily.retainAll(getFamily(i));
                 maximumSize = maximumFamily.size();
             }
