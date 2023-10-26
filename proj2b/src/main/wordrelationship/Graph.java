@@ -63,6 +63,7 @@ public class Graph {
         }
     }
     //.contains is not it. need to check that not equal to each other
+    //if more than one find the tallest family and then the shortest family and do retain all in that
     public List<String> getSimilarFamily (List<String> parents) {
         List<String> fullFamily = getFamily(parents.get(0));
 
