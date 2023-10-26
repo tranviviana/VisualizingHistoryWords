@@ -30,11 +30,11 @@ public class HyponymsGraph {
 
         while (relationIn.hasNextLine()) {
             String nextLine = relationIn.readLine();
-            String[] splitLine = nextLine.split(",");
+            String[] split = nextLine.split(",");
             int i = 1;
-            int sizeSplit = splitLine.length;
+            int sizeSplit = split.length;
             while (i < sizeSplit) {
-                synsetsGraph.individualAddRelationships((Integer.parseInt(splitLine[0])), Integer.parseInt(splitLine[i]));
+                synsetsGraph.individualAddRelationships((Integer.parseInt(split[0])), Integer.parseInt(split[i]));
                 i++;
             }
 
@@ -48,17 +48,14 @@ public class HyponymsGraph {
             String nextLine = synIn.readLine();
             String[] splitLine = nextLine.split(",");
             int id = Integer.parseInt(splitLine[0]);
-            String [] definition = splitLine[1].split(" ");
+            String[] definition = splitLine[1].split(" ");
             for (String word : definition) {
                 synsetsGraph.addDefinitionSingle(id, word);
             }
         }
     }
-    public List<String> hyponyms (List<String> parents) {
+    public List<String> hyponyms(List<String> parents) {
         return synsetsGraph.getSimilarFamily(parents);
     }
-//    public List<String> hyponyms (String parent) {
-//        return synsetsGraph.getFamily(parent);
-//    }
 
 }
