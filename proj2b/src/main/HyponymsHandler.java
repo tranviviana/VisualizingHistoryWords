@@ -21,9 +21,9 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     public String handle(NgordnetQuery q) {
         List<String> words = q.words();
         int startYear = q.startYear();
-        int endYear = q.endYear();;
+        int endYear = q.endYear();
         int k = q.k();
-        TreeMap <Double, String> quantityToResponse = new TreeMap<>();
+        TreeMap<Double, String> quantityToResponse = new TreeMap<>();
         StringBuilder response = new StringBuilder();
         List<Double> quantity = new ArrayList<>();
         List<String> unfilteredResponse = new ArrayList<>();
@@ -36,19 +36,19 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             quantity.add(totalFrequency(ngm.weightHistory(hyponymWord, startYear, endYear)));
         }
         int i = 0;
-       for (Double quant : quantity) {
-           quantityToResponse.put(quant, unfilteredResponse.get(i));
-           i++;
-       }
-       i = 0;
-       quantity = (List<Double>) quantityToResponse.descendingKeySet();
-       while (i < k && !quantityToResponse.isEmpty()) {
-           response.append(quantityToResponse.get(quantity.get(i)));
-           i++;
-       }
+        for (Double quant : quantity) {
+            quantityToResponse.put(quant, unfilteredResponse.get(i));
+            i++;
+        }
+        i = 0;
+        quantity = (List<Double>) quantityToResponse.descendingKeySet();
+        while (i < k && !quantityToResponse.isEmpty()) {
+            response.append(quantityToResponse.get(quantity.get(i)));
+            i++;
+        }
         return response.toString();
     }
-    public double totalFrequency (TimeSeries wordWeightHistory) {
+    public double totalFrequency(TimeSeries wordWeightHistory) {
         double totalValue = 0.0;
         for (int k : wordWeightHistory.keySet()) {
             totalValue += wordWeightHistory.get(k);

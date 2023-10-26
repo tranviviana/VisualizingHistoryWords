@@ -66,7 +66,7 @@ public class Graph {
             allHyponym.add(getFamily(parent));
         }
         int i = 1;
-        while (i < allHyponym.size()){
+        while (i < allHyponym.size()) {
             allHyponym.get(0).retainAll(allHyponym.get(i));
             i++;
         }
