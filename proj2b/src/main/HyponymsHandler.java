@@ -23,30 +23,37 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         int startYear = q.startYear();
         int endYear = q.endYear();;
         int k = q.k();
+        TreeMap <Double, String> quantityToResponse = new TreeMap<>();
         StringBuilder response = new StringBuilder();
+        List<Double> quantity = new ArrayList<>();
         List<String> unfilteredResponse = new ArrayList<>();
-        List<Integer> quantity = new ArrayList<>();
-        List<Integer> originalIndices = new ArrayList<>();
+
         if (k == 0) {
             return response.append(hg.hyponyms(words)).toString();
         }
         unfilteredResponse.addAll(hg.hyponyms(words));
         for (String hyponymWord : unfilteredResponse) {
             quantity.add(totalFrequency(ngm.weightHistory(hyponymWord, startYear, endYear)));
-            originalIndices.add(totalFrequency(ngm.weightHistory(hyponymWord, startYear, endYear)));
         }
-        Collections.sort(quantity);
-        if (quantity.size() > k) {
-            int removalQuantity  = quantity.size() - k;
-        }
-        if (quantity.size() < k) {
-            originalIndices.f
-        }
-
-
+        int i = 0;
+       for (Double quant : quantity) {
+           quantityToResponse.put(quant, unfilteredResponse.get(i));
+           i++;
+       }
+       i = 0;
+       quantity = (List<Double>) quantityToResponse.descendingKeySet();
+       while (i < k && !quantityToResponse.isEmpty()) {
+           response.append(quantityToResponse.get(quantity.get(i)));
+           i++;
+       }
         return response.toString();
     }
-    public int totalFrequency (TimeSeries wordWeightHistory) {
+    public double totalFrequency (TimeSeries wordWeightHistory) {
+        double totalValue = 0.0;
+        for (int k : wordWeightHistory.keySet()) {
+            totalValue += wordWeightHistory.get(k);
+        }
+        return totalValue;
 
     }
 }
