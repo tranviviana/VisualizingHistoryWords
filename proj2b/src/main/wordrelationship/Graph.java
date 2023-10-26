@@ -17,6 +17,7 @@ public class Graph {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
         this.connectionToId = new HashMap<>();
+        this.totalIds = new ArrayList<>();
     }
 
     //adds the name of the word to accessible key
@@ -60,28 +61,16 @@ public class Graph {
     //if more than one find the tallest family and then the shortest family and do retain all in that
     public List<String> getSimilarFamily(List<String> parents) {
         parents = removeRepeats(parents);
-        if (parents.size() == 1) {
-            return getFamily(parents.get(0));
+        List<List<String>> allHyponym = new ArrayList<>();
+        for (String parent : parents) {
+            allHyponym.add(getFamily(parent));
         }
-        int maximumSize = 0;
-        int minimumSize = getFamily(parents.get(0)).size();
-        List<String> minimumFamily = new ArrayList<>();
-        List<String> maximumFamily = new ArrayList<>();
-        for (String i : parents) {
-            if (getFamily(i).size() > maximumSize) {
-                maximumFamily = getFamily(i);
-                maximumSize = getFamily(i).size();
-            } else if (getFamily(i).size() < minimumSize) {
-                minimumFamily = getFamily(i);
-                minimumSize = getFamily(i).size();
-            } else {
-                maximumFamily.retainAll(getFamily(i));
-                maximumSize = maximumFamily.size();
-            }
-        } maximumFamily.retainAll(minimumFamily);
-        return maximumFamily;
-
-
+        int i = 1;
+        while (i < allHyponym.size()){
+            allHyponym.get(0).retainAll(allHyponym.get(i));
+            i++;
+        }
+        return allHyponym.get(0);
     }
 
     //looks at all the occurences and works down from their

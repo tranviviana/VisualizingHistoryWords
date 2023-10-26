@@ -83,5 +83,16 @@ public class TestOneWordK0Hyponyms {
         String expected = "[adjustment, alteration, change, conversion, happening, increase, jump, leap, modification, mutation, natural_event, occurrence, occurrent, saltation, transition]";
         assertThat(actual).isEqualTo(expected);
     }
+    @Test
+    public void testAlteration() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words = List.of("alteration");
+
+        NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
+        String actual = studentHandler.handle(nq);
+        String expected = "[adjustment, alteration, change, conversion, increase, jump, leap, modification, mutation, saltation, transition]";
+        assertThat(actual).isEqualTo(expected);
+    }
 
 }
