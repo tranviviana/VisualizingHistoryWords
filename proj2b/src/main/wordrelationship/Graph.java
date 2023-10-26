@@ -64,11 +64,16 @@ public class Graph {
     }
     //.contains is not it. need to check that not equal to each other
     public List<String> getSimilarFamily (List<String> parents) {
-        List<String> fullFamily = new ArrayList<>();
-        fullFamily = getFamily(parents.get(0));
+        List<String> fullFamily = getFamily(parents.get(0));
 
         for (int i = 1; i < parents.size(); i++) {
-            fullFamily.retainAll(getFamily(parents.get(i)));
+            if (fullFamily.size() > getFamily(parents.get(i)).size()) {
+                fullFamily.retainAll(getFamily(parents.get(i)));
+            }
+            else {
+                getFamily(parents.get(i)).retainAll(fullFamily);
+
+            }
         }
         return fullFamily;
     }
