@@ -1,5 +1,6 @@
 package main.wordrelationship;
 
+import com.google.common.collect.Sets;
 import org.checkerframework.checker.units.qual.A;
 
 import java.lang.reflect.Array;
@@ -63,23 +64,13 @@ public class Graph {
     }
     //.contains is not it. need to check that not equal to each other
     public List<String> getSimilarFamily (List<String> parents) {
-        parents = removeRepeats(parents);
-        if (parents.size() == 1) {
-            return getFamily(parents.get(0));
+        List<String> fullFamily = new ArrayList<>();
+        fullFamily = getFamily(parents.get(0));
+
+        for (int i = 1; i < parents.size(); i++) {
+            fullFamily.retainAll(getFamily(parents.get(i)));
         }
-        List<String> sharedFamily = new ArrayList<>();
-        for (String word : getFamily(parents.get(0))) {
-            int i = 1;
-            sharedFamily.add(word);
-            while (i < parents.size()) {
-                if (!(getFamily(parents.get(i)))(word)) {
-                    sharedFamily.remove(word);
-                    break;
-                }
-                i++;
-            }
-        }
-        return sharedFamily;
+        return fullFamily;
     }
 
     //looks at all the occurences and works down from their
