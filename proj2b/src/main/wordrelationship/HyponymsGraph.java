@@ -26,8 +26,9 @@ public class HyponymsGraph {
     }
 
     private void relationshipCreator(In relationIn) {
-        String nextLine = relationIn.readLine();
+
         while (relationIn.hasNextLine()) {
+            String nextLine = relationIn.readLine();
             String[] splitLine = nextLine.split(",");
             int i = 1;
             int sizeSplit = splitLine.length;
@@ -35,21 +36,21 @@ public class HyponymsGraph {
                 synsetsGraph.individualAddRelationships((Integer.parseInt(splitLine[0])), Integer.parseInt(splitLine[i]));
                 i++;
             }
-            nextLine = relationIn.readLine();
+
         }
+
 
 
     }
     private void definitionCreator(In synIn) {
-        String nextLine = synIn.readLine();
         while (synIn.hasNextLine()) {
+            String nextLine = synIn.readLine();
             String[] splitLine = nextLine.split(",");
             int id = Integer.parseInt(splitLine[0]);
             String [] definition = splitLine[1].split(" ");
             for (String word : definition) {
                 synsetsGraph.addDefinitionSingle(id, word);
             }
-            nextLine = synIn.readLine();
         }
     }
     public Collection<String> hyponyms (String parent) {

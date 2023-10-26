@@ -47,7 +47,7 @@ public class TestOneWordK0Hyponyms {
 
         NgordnetQuery nq = new NgordnetQuery(words, 0, 0, 0);
         String actual = studentHandler.handle(nq);
-        String expected = "[act, action, adjustment, alteration, change, conversion, demotion, event, flashback, happening, human_action, human_activity, increase, leap, modification, mutation, natural_event, occurrence, occurrent, saltation, transition, variation]";
+        String expected = "[act, action, adjustment, alteration, change, conversion, demotion, event, flashback, happening, human_action, human_activity, increase, jump, leap, modification, mutation, natural_event, occurrence, occurrent, saltation, transition, variation]";
         assertThat(actual).isEqualTo(expected);
     }
     @Test
