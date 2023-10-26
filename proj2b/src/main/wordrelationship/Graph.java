@@ -61,9 +61,23 @@ public class Graph {
             adjacentChildren.get(mainNumber).add(number);
         }
     }
+    public List<String> getSimilarFamily (List<String> parents) {
+        parents = removeRepeats(parents);
+        if (parents.size() == 1) {
+            return getFamily(parents.get(1));
+        }
+        Collection<Collection<String>> allFamily = new ArrayList<>();
+        for (String word)
+        while (int i = 1; i < parents.size(); i++) {
+        }
+
+
+    }
+
     //looks at all the occurences and works down from their
-    public Collection<String> getFamily(String parentNode) {
-        Collection<Integer> occurrences = new ArrayList<>();
+    //works for individual words
+    public List<String> getFamily(String parentNode) {
+        List<Integer> occurrences = new ArrayList<>();
         if (connectionToId.get(parentNode) == null) {
             return new ArrayList<>();
         }
@@ -85,7 +99,7 @@ public class Graph {
     }
 
     //convert all the ids to names and sorts them
-    private Collection<String> getNames(Collection<Integer> totalIds) {
+    private Collection<String> getNames(List<Integer> totalIds) {
         List<String> allWords = new ArrayList<>() {
         };
         for (int id : totalIds) {
@@ -97,8 +111,8 @@ public class Graph {
         return removeRepeats(allWords);
     }
     //creates an array of unique items
-    private Collection<String> removeRepeats(List<String> allWords) {
-        Collection<String> uniqueWords = new ArrayList<>();
+    private List<String> removeRepeats(List<String> allWords) {
+        List<String> uniqueWords = new ArrayList<>();
         for (int i = 0; i < allWords.toArray().length; i++) {
             if (!uniqueWords.contains(allWords.get(i))) {
                 uniqueWords.add(allWords.get(i));
