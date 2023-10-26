@@ -65,18 +65,28 @@ public class Graph {
     //.contains is not it. need to check that not equal to each other
     //if more than one find the tallest family and then the shortest family and do retain all in that
     public List<String> getSimilarFamily (List<String> parents) {
-        List<String> fullFamily = getFamily(parents.get(0));
-
-        for (int i = 1; i < parents.size(); i++) {
-            if (fullFamily.size() > getFamily(parents.get(i)).size()) {
-                fullFamily.retainAll(getFamily(parents.get(i)));
+        List<String> initialFamily = getFamily(parents.get(0));
+        parents = removeRepeats(parents);
+        int maximumSize = 0;
+        int minimumSize = getFamily(parents.get(0)).size();
+        List<String> minimumFamily = initialFamily;
+        List<String> maximumFamily = initialFamily;
+        for (String i : parents) {
+            if (getFamily(i).size() > maximumSize) {
+                maximumFamily = getFamily(i);
+                maximumSize = getFamily(i).size();
+            } else if (getFamily(i).size() < minimumSize) {
+                minimumFamily = getFamily(i);
+                minimumSize = getFamily(i).size();
             }
             else {
-                getFamily(parents.get(i)).retainAll(fullFamily);
-
+                maximumFamily.retainAll(getFamily(i));
             }
         }
-        return fullFamily;
+        maximumFamily.retainAll(minimumFamily);
+        return maximumFamily;
+
+
     }
 
     //looks at all the occurences and works down from their
