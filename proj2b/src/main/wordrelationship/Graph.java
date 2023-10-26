@@ -1,9 +1,4 @@
 package main.wordrelationship;
-
-import com.google.common.collect.Sets;
-import org.checkerframework.checker.units.qual.A;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -22,7 +17,6 @@ public class Graph {
         this.adjacentChildren = new HashMap<>();
         this.connectionToDefinition = new HashMap<>();
         this.connectionToId = new HashMap<>();
-        this.totalIds = new ArrayList<>();
     }
 
     //adds the name of the word to accessible key
@@ -64,7 +58,7 @@ public class Graph {
     }
     //.contains is not it. need to check that not equal to each other
     //if more than one find the tallest family and then the shortest family and do retain all in that
-    public List<String> getSimilarFamily (List<String> parents) {
+    public List<String> getSimilarFamily(List<String> parents) {
         parents = removeRepeats(parents);
         if (parents.size() == 1) {
             return getFamily(parents.get(0));
@@ -85,8 +79,7 @@ public class Graph {
                 maximumFamily.retainAll(getFamily(i));
                 maximumSize = maximumFamily.size();
             }
-        }
-        maximumFamily.retainAll(minimumFamily);
+        } maximumFamily.retainAll(minimumFamily);
         return maximumFamily;
 
 
