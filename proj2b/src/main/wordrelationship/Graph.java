@@ -61,6 +61,7 @@ public class Graph {
             adjacentChildren.get(mainNumber).add(number);
         }
     }
+    //.contains is not it. need to check that not equal to each other
     public List<String> getSimilarFamily (List<String> parents) {
         parents = removeRepeats(parents);
         if (parents.size() == 1) {
@@ -71,7 +72,7 @@ public class Graph {
             int i = 1;
             sharedFamily.add(word);
             while (i < parents.size()) {
-                if (!getFamily(parents.get(1)).contains(word)) {
+                if (!(getFamily(parents.get(i)))(word)) {
                     sharedFamily.remove(word);
                     break;
                 }
