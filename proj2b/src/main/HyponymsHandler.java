@@ -52,8 +52,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         }
         Collections.sort(filteredResponse);
         response.append(filteredResponse);
-        if (response.isEmpty())
-        {
+        if (response.isEmpty()) {
             response.append("[]");
         }
         return response.toString();
