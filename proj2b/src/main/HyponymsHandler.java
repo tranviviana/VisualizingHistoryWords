@@ -41,10 +41,14 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             i++;
         }
         i = 0;
-        quantity = (List<Double>) quantityToResponse.descendingKeySet();
+        quantityToResponse.descendingKeySet();
         while (i < k && !quantityToResponse.isEmpty()) {
             response.append(quantityToResponse.get(quantity.get(i)));
             i++;
+        }
+        if (response.isEmpty())
+        {
+            response.append("[]");
         }
         return response.toString();
     }

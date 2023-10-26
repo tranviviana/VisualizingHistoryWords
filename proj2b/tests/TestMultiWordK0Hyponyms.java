@@ -79,4 +79,14 @@ public class TestMultiWordK0Hyponyms {
     // TODO: Add more unit tests (including edge case tests) here.
 
     // TODO: Create similar unit test files for the k != 0 cases.
+    @Test
+    public void testCake() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+        List<String> words = List.of("food", "cake");
+        NgordnetQuery nq = new NgordnetQuery(words, 1950, 1990, 5);
+        String actual = studentHandler.handle(nq);
+        String expected = "[biscuit, cake, kiss, snap, wafer]";
+        assertThat(actual).isEqualTo(expected);
+    }
 }

@@ -13,8 +13,8 @@ public class Main {
         NGramMap ngm = new NGramMap(wordFile, countFile);
 
 
-        String hyponymFile = "./data/wordnet/hyponyms11.txt";
-        String synsetsFile = "./data/wordnet/synsets11.txt";
+        String hyponymFile = "./data/wordnet/hyponyms.txt";
+        String synsetsFile = "./data/wordnet/synsets.txt";
         HyponymsGraph hg = new HyponymsGraph(hyponymFile, synsetsFile);
 
 
