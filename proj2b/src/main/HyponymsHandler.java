@@ -10,17 +10,14 @@ import java.util.List;
 public class HyponymsHandler extends NgordnetQueryHandler {
     private final HyponymsGraph hg;
 
-   public HyponymsHandler(HyponymsGraph hg) {
-       this.hg = hg;
-   }
+    public HyponymsHandler(HyponymsGraph hg) {
+        this.hg = hg;
+    }
     @Override
     public String handle(NgordnetQuery q) {
         List<String> words = q.words();
         StringBuilder response = new StringBuilder();
         response.append(hg.hyponyms(words));
-//        for (String word : words) {
-//            response.append(hg.hyponyms(word));
-//        }
         return response.toString();
     }
 }
