@@ -110,10 +110,10 @@ public class Graph {
     }
 
     //convert all the ids to names and sorts them
-    private List<String> getNames(List<Integer> totalIds) {
+    private List<String> getNames(List<Integer> idNumbers) {
         List<String> allWords = new ArrayList<>() {
         };
-        for (int id : totalIds) {
+        for (int id : idNumbers) {
             allWords.addAll(connectionToDefinition.get(id));
         }
         if (!allWords.isEmpty()) {
