@@ -19,7 +19,7 @@ public class Main {
         HyponymsGraph hg = new HyponymsGraph(hyponymFile, synsetsFile);
 
         hns.startUp();
-        hns.register("hyponyms", new HyponymsHandler(hg));
+        hns.register("hyponyms", new HyponymsHandler(hg, ngm));
         hns.register("history", new DummyHistoryHandler());
         hns.register("historytext", new DummyHistoryTextHandler());
 

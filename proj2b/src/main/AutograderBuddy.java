@@ -10,7 +10,7 @@ public class AutograderBuddy {
             String wordFile, String countFile,
             String synsetFile, String hyponymFile) {
         HyponymsGraph hg = new HyponymsGraph(hyponymFile, synsetFile);
-        return new HyponymsHandler(hg);
+        return new HyponymsHandler(hg, ngm);
     }
 
 }
