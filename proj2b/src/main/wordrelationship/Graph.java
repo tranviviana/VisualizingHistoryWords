@@ -65,12 +65,14 @@ public class Graph {
     //.contains is not it. need to check that not equal to each other
     //if more than one find the tallest family and then the shortest family and do retain all in that
     public List<String> getSimilarFamily (List<String> parents) {
-        List<String> initialFamily = getFamily(parents.get(0));
         parents = removeRepeats(parents);
+        if (parents.size() == 1) {
+            return getFamily(parents.get(0));
+        }
         int maximumSize = 0;
         int minimumSize = getFamily(parents.get(0)).size();
-        List<String> minimumFamily = initialFamily;
-        List<String> maximumFamily = initialFamily;
+        List<String> minimumFamily = new ArrayList<>();
+        List<String> maximumFamily = new ArrayList<>();
         for (String i : parents) {
             if (getFamily(i).size() > maximumSize) {
                 maximumFamily = getFamily(i);
@@ -81,6 +83,7 @@ public class Graph {
             }
             else {
                 maximumFamily.retainAll(getFamily(i));
+                maximumSize = maximumFamily.size();
             }
         }
         maximumFamily.retainAll(minimumFamily);
@@ -93,6 +96,7 @@ public class Graph {
     //works for individual words
     private List<String> getFamily(String parentNode) {
         List<Integer> occurrences = new ArrayList<>();
+        totalIds = new ArrayList<>();
         if (connectionToId.get(parentNode) == null) {
             return new ArrayList<>();
         }
