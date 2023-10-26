@@ -64,6 +64,9 @@ public class Graph {
     //looks at all the occurences and works down from their
     public Collection<String> getFamily(String parentNode) {
         Collection<Integer> occurrences = new ArrayList<>();
+        if (connectionToId.get(parentNode) == null) {
+            return new ArrayList<>();
+        }
         occurrences.addAll(connectionToId.get(parentNode));
         for (int sibling : occurrences) {
             getChildren(sibling);
