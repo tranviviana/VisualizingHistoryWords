@@ -26,13 +26,14 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         TreeMap<Double, String> quantityToResponse = new TreeMap<>();
         StringBuilder response = new StringBuilder();
         List<Double> quantity = new ArrayList<>();
+        NavigableSet<Double> descendedKey;
 
         if (k == 0) {
             return response.append(hg.hyponyms(words)).toString();
         }
-        List<String> unfilteredResponse = new ArrayList<>(hg.hyponyms(words));
+        List<String> unfilteredResponse = hg.hyponyms(words);
         for (String hyponymWord : unfilteredResponse) {
-            quantity.add(totalFrequency(ngm.weightHistory(hyponymWord, startYear, endYear)));
+            quantity.add(totalFrequency(ngm.countHistory(hyponymWord, startYear, endYear)));
         }
         int i = 0;
         for (Double quant : quantity) {
@@ -40,7 +41,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             i++;
         }
         i = 0;
-        NavigableSet<Double> descendedKey = quantityToResponse.descendingKeySet();
+        descendedKey = quantityToResponse.descendingKeySet();
         for (Double key : descendedKey) {
             response.append(quantityToResponse.get(key));
             if (i == k) {

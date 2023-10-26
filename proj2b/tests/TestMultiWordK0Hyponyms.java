@@ -82,7 +82,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testCake() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, SMALL_SYNSET_FILE, SMALL_HYPONYM_FILE);
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("food", "cake");
         NgordnetQuery nq = new NgordnetQuery(words, 1950, 1990, 5);
         String actual = studentHandler.handle(nq);
