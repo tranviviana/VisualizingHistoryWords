@@ -56,4 +56,5 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         return totalValue;
 
     }
+
 }
