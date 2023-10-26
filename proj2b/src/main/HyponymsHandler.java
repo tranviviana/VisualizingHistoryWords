@@ -32,6 +32,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             return response.append(hg.hyponyms(words)).toString();
         }
         List<String> unfilteredResponse = hg.hyponyms(words);
+        List<String> filteredResponse = new ArrayList<>();
         for (String hyponymWord : unfilteredResponse) {
             quantity.add(totalFrequency(ngm.countHistory(hyponymWord, startYear, endYear)));
         }
@@ -40,15 +41,17 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             quantityToResponse.put(quant, unfilteredResponse.get(i));
             i++;
         }
-        i = 0;
+        i = 1;
         descendedKey = quantityToResponse.descendingKeySet();
         for (Double key : descendedKey) {
-            response.append(quantityToResponse.get(key));
+            filteredResponse.add(quantityToResponse.get(key));
             if (i == k) {
                 break;
             }
             i++;
         }
+        Collections.sort(filteredResponse);
+        response.append(filteredResponse);
         if (response.isEmpty())
         {
             response.append("[]");
