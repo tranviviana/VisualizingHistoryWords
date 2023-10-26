@@ -11,11 +11,11 @@ import java.util.*;
 //map id to word
 //map word to connection
 public class Graph {
-    private HashMap<Integer, Collection<Integer>> adjacentChildren;
+    private HashMap<Integer, List<Integer>> adjacentChildren;
     //each "node" is a name
-    private HashMap<Integer, Collection<String>> connectionToDefinition;
-    private HashMap<String, Collection<Integer>> connectionToId;
-    private Collection<Integer> totalIds;
+    private HashMap<Integer, List<String>> connectionToDefinition;
+    private HashMap<String, List<Integer>> connectionToId;
+    private List<Integer> totalIds;
 
     public Graph() {
         this.adjacentChildren = new HashMap<>();
@@ -27,7 +27,7 @@ public class Graph {
     //adds the name of the word to accessible key
     public void addDefinitionSingle(int id, String word) {
         if (!connectionToDefinition.containsKey(id)) {
-            Collection<String> definitionList = new ArrayList<>();
+            List<String> definitionList = new ArrayList<>();
             definitionList.add(word);
             connectionToDefinition.put(id, definitionList);
         }
@@ -41,7 +41,7 @@ public class Graph {
     //adds the string's id to its occurrences
     private void addIDSingle(String word, int id) {
         if (!connectionToId.containsKey(word)) {
-            Collection<Integer> idList = new ArrayList<>();
+            List<Integer> idList = new ArrayList<>();
             idList.add(id);
             connectionToId.put(word, idList);
         }
@@ -52,7 +52,7 @@ public class Graph {
 
     public void individualAddRelationships(int mainNumber, int number) {
         if (!adjacentChildren.containsKey(mainNumber)) {
-            Collection<Integer> childrenIds = new ArrayList<>();
+            List<Integer> childrenIds = new ArrayList<>();
             childrenIds.add(number);
             adjacentChildren.put(mainNumber, childrenIds);
 
@@ -64,14 +64,21 @@ public class Graph {
     public List<String> getSimilarFamily (List<String> parents) {
         parents = removeRepeats(parents);
         if (parents.size() == 1) {
-            return getFamily(parents.get(1));
+            return getFamily(parents.get(0));
         }
-        Collection<Collection<String>> allFamily = new ArrayList<>();
-        for (String word)
-        while (int i = 1; i < parents.size(); i++) {
+        List<String> sharedFamily = new ArrayList<>();
+        for (String word : getFamily(parents.get(0))) {
+            int i = 1;
+            sharedFamily.add(word);
+            while (i < parents.size()) {
+                if (!getFamily(parents.get(1)).contains(word)) {
+                    sharedFamily.remove(word);
+                    break;
+                }
+                i++;
+            }
         }
-
-
+        return sharedFamily;
     }
 
     //looks at all the occurences and works down from their
@@ -99,7 +106,7 @@ public class Graph {
     }
 
     //convert all the ids to names and sorts them
-    private Collection<String> getNames(List<Integer> totalIds) {
+    private List<String> getNames(List<Integer> totalIds) {
         List<String> allWords = new ArrayList<>() {
         };
         for (int id : totalIds) {
