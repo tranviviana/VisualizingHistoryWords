@@ -44,10 +44,10 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         i = 1;
         descendedKey = quantityToResponse.descendingKeySet();
         for (Double key : descendedKey) {
-            filteredResponse.add(quantityToResponse.get(key));
             if (i == k) {
                 break;
             }
+            filteredResponse.add(quantityToResponse.get(key));
             i++;
         }
         Collections.sort(filteredResponse);
