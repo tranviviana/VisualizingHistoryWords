@@ -13,7 +13,7 @@ import static edu.princeton.cs.algs4.StdOut.print;
 public class TestMultiWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
     public static final String WORDS_FILE = "data/ngrams/top_49887_words.csv";
-   
+
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
     public static final String SMALL_HYPONYM_FILE = "data/wordnet/hyponyms16.txt";
@@ -101,4 +101,25 @@ public class TestMultiWordK0Hyponyms {
         NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
         print(ngm.countHistory("biscuit",1950,1990).get(1990));
     }
+    @Test
+    public void testEmbezzlement() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("deed", "embezzlement");
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 6);
+        String actual = studentHandler.handle(nq);
+        String expected = "[raid]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testStatus() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("status", "strait");
+        NgordnetQuery nq = new NgordnetQuery(words, 1920, 1980 , 7);
+        String actual = studentHandler.handle(nq);
+        String expected = "[pass]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    
 }
