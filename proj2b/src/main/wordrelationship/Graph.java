@@ -5,7 +5,7 @@ import java.util.*;
 
 
 public class Graph {
-   List<List<Integer>> connectedTo;
+   private List<List<Integer>> connectedTo;
     public Graph (int size) {
         this.connectedTo = new ArrayList<>(size);
 
