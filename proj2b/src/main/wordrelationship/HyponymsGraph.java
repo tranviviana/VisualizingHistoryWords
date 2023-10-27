@@ -46,7 +46,12 @@ public class HyponymsGraph {
         synsetGraph = new Graph(sizeOfGroup);
     }
     //builds the relationship of occurences, if a word occurs in more nodes, it is maped in this map
+    //if its not already mapped add it if it is adjust the bin to have the id as well
     public void connectWordToId(String word, int id) {
+        if (!wordToId.containsKey(word)) {
+            wordToId.put(word, List.of(id));
+        }
+        wordToId.get(word).add(id);
 
     }
     //achieves the graph method and correlates the nodes to one another
