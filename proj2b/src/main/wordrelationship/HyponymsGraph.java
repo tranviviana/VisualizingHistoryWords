@@ -29,17 +29,27 @@ public class HyponymsGraph {
         connectIdToWord(idToWord);
         buildRelations(relationIn);
     }
+    //creates the graph and reads the file to map the ids to the definitions
+    //calls the reverse of it
     public void connectIdToWord(In definitionFile) {
         while (definitionFile.hasNextLine()) {
             String nextLine = definitionFile.readLine();
             String[] splitLine = nextLine.split(",");
             int id = Integer.parseInt(splitLine[0]);
             List<String> definition = List.of(splitLine[1].split(" "));
+            for (String word : definition) {
+                connectWordToId(word, id);
+            }
             idToWord.put(id, definition);
             sizeOfGroup += 1;
         }
         synsetGraph = new Graph(sizeOfGroup);
     }
+    //builds the relationship of occurences, if a word occurs in more nodes, it is maped in this map
+    public void connectWordToId(String word, int id) {
+
+    }
+    //achieves the graph method and correlates the nodes to one another
     public void buildRelations(In relationshipFile) {
         while (relationshipFile.hasNextLine()) {
             String nextLine = relationshipFile.readLine();
