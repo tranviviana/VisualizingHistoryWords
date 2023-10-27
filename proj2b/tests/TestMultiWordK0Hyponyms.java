@@ -121,5 +121,5 @@ public class TestMultiWordK0Hyponyms {
         String expected = "[pass]";
         assertThat(actual).isEqualTo(expected);
     }
-    
+
 }

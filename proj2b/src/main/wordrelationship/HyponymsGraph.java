@@ -18,7 +18,7 @@ public class HyponymsGraph {
     private Graph synsetsGraph;
 
     public HyponymsGraph(String hyponymsFiles, String synsetsFiles) {
-        this.synsetsGraph = new Graph();
+        //this.synsetsGraph = new Graph();
         In relationIn = new In(hyponymsFiles);
         relationshipCreator(relationIn);
         In synIn = new In(synsetsFiles);
