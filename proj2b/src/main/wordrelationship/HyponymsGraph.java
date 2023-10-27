@@ -64,6 +64,10 @@ public class HyponymsGraph {
             }
         }
     }
+    //converts ids to the names and alphabetizes
+    public void idToNames(List<Integer> ids) {
+        for
+    }
 
 //    public void buildRelationship(In relationFile) {
 //        while (relationFile.hasNextLine()) {
