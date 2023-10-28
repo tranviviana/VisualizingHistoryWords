@@ -37,14 +37,14 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             //adding to priority queue backwards
             Double totalSum = totalFreq(ngm.countHistory(word, startYear, endYear));
             if (totalSum != 0.0) {
-                quantity.add(-1 * totalSum);
+                double negTotal = -1 * totalSum;
+                quantity.add(negTotal);
                 if (!quantityToString.containsKey(-1 * totalSum)) {
                     ArrayList<String> associatedWord = new ArrayList<>();
                     associatedWord.add(word);
                     quantityToString.put(-1 * totalSum, associatedWord);
                 } else {
                     quantityToString.get(-1 * totalSum).add(word);
-                    quantityToString.put(-1 * totalSum, quantityToString.get(-1 * totalSum));
                 }
             }
         }
@@ -60,11 +60,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         return response.toString();
     }
     public Double totalFreq(TimeSeries historyOfWord) {
-        Double sum = 0.0;
-        for (Double value : historyOfWord.values()) {
-            sum += value;
-        }
-        return sum;
+        return historyOfWord.values().stream().mapToDouble(Double::doubleValue).sum();
     }
 }
 
