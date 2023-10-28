@@ -38,10 +38,6 @@ public class Graph {
         return totalIds;
     }
 
-//    private List<Integer> allChildren(int parent) {
-//        List<Integer> totalIds = new ArrayList<>();
-//        return allChildrenHelper(parent, totalIds);
-//    }
     private List<Integer> allChildrenHelper(int parent, List<Integer> childrenList) {
         for (int parentId : directChildren(parent)) {
             childrenList.add(parentId);
