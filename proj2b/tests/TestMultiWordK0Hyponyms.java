@@ -18,13 +18,10 @@ public class TestMultiWordK0Hyponyms {
 
 
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
-    public static final String funkytotals = "data/ngrams/funkytotal_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
     public static final String SMALL_HYPONYM_FILE = "data/wordnet/hyponyms16.txt";
     public static final String LARGE_SYNSET_FILE = "data/wordnet/synsets.txt";
     public static final String LARGE_HYPONYM_FILE = "data/wordnet/hyponyms.txt";
-    public static final String funky20 = "data/wordnet/synsets20.txt";
-    public static final String funky20hyponyms = "data/wordnet/hyponyms20.txt";
 
     /** This is an example from the spec.*/
     @Test
@@ -91,7 +88,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testCake() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("food", "cake");
         NgordnetQuery nq = new NgordnetQuery(words, 1950, 1990, 5);
         String actual = studentHandler.handle(nq);
