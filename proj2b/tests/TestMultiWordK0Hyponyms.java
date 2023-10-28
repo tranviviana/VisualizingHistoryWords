@@ -14,12 +14,16 @@ public class TestMultiWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
     public static final String MEDIUMWORDS_FILE = "data/ngrams/top_14377_words.csv";
     public static final String WORDS_FILE = "data/ngrams/top_49887_words.csv";
+    public static final String funkyCSV = "data/ngrams/frequency_tester.csv";
+
 
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
     public static final String SMALL_HYPONYM_FILE = "data/wordnet/hyponyms16.txt";
     public static final String LARGE_SYNSET_FILE = "data/wordnet/synsets.txt";
     public static final String LARGE_HYPONYM_FILE = "data/wordnet/hyponyms.txt";
+    public static final String funky20 = "data/wordnet/synsets20.txt";
+    public static final String funky20hyponyms = "data/wordnet/hyponyms20.txt";
 
     /** This is an example from the spec.*/
     @Test
@@ -143,13 +147,13 @@ public class TestMultiWordK0Hyponyms {
         assertThat(actual).isEqualTo(expected);
     }
     @Test
-    public void testBeing() {
+    public void test20() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
-        List<String> words = List.of("being", "terpsichorean");
-        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 2);
+                funkyCSV, TOTAL_COUNTS_FILE, funky20, funky20hyponyms);
+        List<String> words = List.of("AAAA");
+        NgordnetQuery nq = new NgordnetQuery(words, 1400, 202020,3);
         String actual = studentHandler.handle(nq);
-        String expected = "[dancer]";
+        String expected = "[DDDD, EEEE, FFFF]";
         assertThat(actual).isEqualTo(expected);
     }
 
