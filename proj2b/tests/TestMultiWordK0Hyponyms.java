@@ -12,7 +12,8 @@ import static edu.princeton.cs.algs4.StdOut.print;
 /** Tests the case where the list of words is length greater than 1, but k is still zero. */
 public class TestMultiWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
-    public static final String WORDS_FILE = "data/ngrams/top_14377_words.csv";
+    public static final String MEDIUMWORDS_FILE = "data/ngrams/top_14377_words.csv";
+    public static final String WORDS_FILE = "data/ngrams/top_49887_words.csv";
 
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
@@ -85,7 +86,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testCake() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("food", "cake");
         NgordnetQuery nq = new NgordnetQuery(words, 1950, 1990, 5);
         String actual = studentHandler.handle(nq);
@@ -95,7 +96,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testPopularity() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("food", "cake");
         NgordnetQuery nq = new NgordnetQuery(words, 1950, 1990, 5);
         NGramMap ngm = new NGramMap(WORDS_FILE, TOTAL_COUNTS_FILE);
@@ -104,7 +105,7 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testEmbezzlement() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("deed", "embezzlement");
         NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 6);
         String actual = studentHandler.handle(nq);
@@ -114,12 +115,43 @@ public class TestMultiWordK0Hyponyms {
     @Test
     public void testStatus() {
         NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-                WORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
         List<String> words = List.of("status", "strait");
         NgordnetQuery nq = new NgordnetQuery(words, 1920, 1980 , 7);
         String actual = studentHandler.handle(nq);
         String expected = "[pass]";
         assertThat(actual).isEqualTo(expected);
     }
+    @Test
+    public void testGenus() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("genus");
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 9);
+        String actual = studentHandler.handle(nq);
+        String expected = "[genus]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testBeing() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("being", "terpsichorean");
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 2);
+        String actual = studentHandler.handle(nq);
+        String expected = "[dancer]";
+        assertThat(actual).isEqualTo(expected);
+    }
+    @Test
+    public void testBeing() {
+        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
+                MEDIUMWORDS_FILE, TOTAL_COUNTS_FILE, LARGE_SYNSET_FILE, LARGE_HYPONYM_FILE);
+        List<String> words = List.of("being", "terpsichorean");
+        NgordnetQuery nq = new NgordnetQuery(words, 1470, 2019 , 2);
+        String actual = studentHandler.handle(nq);
+        String expected = "[dancer]";
+        assertThat(actual).isEqualTo(expected);
+    }
+
 
 }
