@@ -18,8 +18,8 @@ import java.util.List;
  */
 
 public class HyponymsGraph {
-    private HashMap<Integer, List<String>> idToWord;
-    private HashMap<String, List<Integer>> wordToId;
+    private HashMap<Integer, ArrayList<String>> idToWord;
+    private HashMap<String, ArrayList<Integer>> wordToId;
     private Graph synsetGraph;
     private int sizeOfGroup;
     public HyponymsGraph(String hyponymsFiles, String synsetsFiles) {
@@ -37,7 +37,7 @@ public class HyponymsGraph {
             String nextLine = definitionFile.readLine();
             String[] splitLine = nextLine.split(",");
             int id = Integer.parseInt(splitLine[0]);
-            List<String> definition = new ArrayList<>(List.of(splitLine[1].split(" ")));
+            ArrayList<String> definition = new ArrayList<>(List.of(splitLine[1].split(" ")));
             for (String word : definition) {
                 connectWordToId(word, id);
             }
@@ -52,9 +52,8 @@ public class HyponymsGraph {
         if (!wordToId.containsKey(word)) {
             wordToId.put(word, new ArrayList<>(List.of(id)));
         } else {
-            List<Integer> addingNewId = new ArrayList<>(wordToId.get(word));
-            addingNewId.add(id);
-            wordToId.put(word, addingNewId);
+            wordToId.get(word).add(id);
+            wordToId.put(word, wordToId.get(word));
         }
     }
     //achieves the graph method and correlates the nodes to one another

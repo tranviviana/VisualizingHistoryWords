@@ -24,10 +24,10 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         int startYear = q.startYear();
         int endYear = q.endYear();
         List<String> allWords = hg.hyponyms(words);
-        List<String> kWords = new ArrayList<>();
+        ArrayList<String> kWords = new ArrayList<>();
         StringBuilder response = new StringBuilder();
         PriorityQueue<Double> quantity = new PriorityQueue<>();
-        HashMap<Double, List<String>> quantityToString = new HashMap<>();
+        HashMap<Double, ArrayList<String>> quantityToString = new HashMap<>();
         if (k == 0) {
             response.append(allWords);
             return response.toString();
@@ -39,22 +39,20 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             if (totalSum != 0.0) {
                 quantity.add(-1 * totalSum);
                 if (!quantityToString.containsKey(-1 * totalSum)) {
-                    quantityToString.put(-1 * totalSum, List.of(word));
+                    quantityToString.put(-1 * totalSum, (ArrayList<String>) List.of(word));
                 } else {
-                    List<String> addWord = new ArrayList<>(quantityToString.get(-1 * totalSum));
-                    addWord.add(word);
-                    quantityToString.put(-1 * totalSum, addWord);
+                    quantityToString.get(-1 * totalSum).add(word);
+                    quantityToString.put(-1 * totalSum, quantityToString.get(-1 * totalSum));
                 }
             }
         }
+
         while (k != 0 && !quantity.isEmpty()) {
             Double maximum = quantity.remove();
-            List<String> maximumList = new ArrayList<>(quantityToString.get(maximum));
-            String maximumWord = maximumList.get(0);
-            maximumList.remove(0);
-            quantityToString.put(maximum, maximumList);
-            k--;
+            String maximumWord = quantityToString.get(maximum).remove(0);
+            quantityToString.put(maximum, quantityToString.get(maximum));
             kWords.add(maximumWord);
+            k--;
         }
         Collections.sort(kWords);
         response.append(kWords);

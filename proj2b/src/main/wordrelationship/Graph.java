@@ -36,12 +36,11 @@ public class Graph {
         }
         return totalIds;
     }
-    private List<Integer> allChildrenHelper(int parent, List<Integer> childrenList) {
+    private void allChildrenHelper(int parent, List<Integer> childrenList) {
         for (int parentId : directChildren(parent)) {
             childrenList.add(parentId);
             allChildrenHelper(parentId, childrenList);
         }
-        return childrenList;
     }
 }
 
