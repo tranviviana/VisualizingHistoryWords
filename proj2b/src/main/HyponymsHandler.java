@@ -48,7 +48,6 @@ public class HyponymsHandler extends NgordnetQueryHandler {
                 }
             }
         }
-
         while (k != 0 && !quantity.isEmpty()) {
             Double maximum = quantity.remove();
             String maximumWord = quantityToString.get(maximum).remove(0);

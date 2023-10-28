@@ -4,42 +4,57 @@ import java.util.*;
 
 
 public class Graph {
-    private List<List<Integer>> connectedTo;
+    private HashMap<Integer, ArrayList<Integer>> connectedTo;
+    private int size;
     public Graph(int size) {
-        this.connectedTo = new ArrayList<>();
-        createBuckets(size);
+        this.connectedTo = new HashMap<>();
+        this.size = size;
     }
-    public void createBuckets(int size) {
-        int i = 0;
-        while (i < size) {
-            connectedTo.add(new ArrayList<>());
-            i++;
+
+//    private ArrayList<Integer> createBuckets() {
+//        return new ArrayList<>();
+//    }
+
+    public void addEdge(int parent, int child) {
+        if (!connectedTo.containsKey(parent)) {
+            ArrayList<Integer> bucket = new ArrayList<>();
+            bucket.add(child);
+            connectedTo.put(parent, bucket);
+        } else {
+            connectedTo.get(parent).add(child);
+            connectedTo.put(parent, connectedTo.get(parent));
         }
     }
-    public void addEdge(int parent, int child) {
-        List<Integer> parentsChildren = new ArrayList<>(connectedTo.get(parent));
-        parentsChildren.add(child);
-        connectedTo.set(parent, parentsChildren);
-    }
+
     public List<Integer> directChildren(int parent) {
         return connectedTo.get(parent);
     }
+
     //possible optimization
     public List<Integer> allChildrenList(List<Integer> occurences) {
+        Set<Integer> visited = new HashSet<>();
         List<Integer> totalIds = new ArrayList<>();
         if (occurences == null) {
             return totalIds;
         }
         for (int occurence : occurences) {
-            totalIds.add(occurence);
-            allChildrenHelper(occurence, totalIds);
+            if (!visited.contains(occurence)) {
+                totalIds.add(occurence);
+                allChildrenHelper(occurence, totalIds, visited);
+            }
         }
         return totalIds;
     }
-    private void allChildrenHelper(int parent, List<Integer> childrenList) {
-        for (int parentId : directChildren(parent)) {
-            childrenList.add(parentId);
-            allChildrenHelper(parentId, childrenList);
+
+    private void allChildrenHelper(int parent, List<Integer> childrenList, Set<Integer> visited) {
+        visited.add(parent);
+        if (directChildren(parent) != null) {
+            for (int parentId : directChildren(parent)) {
+                if (!visited.contains(parentId)) {
+                    childrenList.add(parentId);
+                    allChildrenHelper(parentId, childrenList, visited);
+                }
+            }
         }
     }
 }
