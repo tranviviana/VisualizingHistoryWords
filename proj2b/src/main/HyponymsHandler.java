@@ -32,6 +32,10 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         StringBuilder response = new StringBuilder();
         PriorityQueue<Double> quantity = new PriorityQueue<>();
         HashMap<Double, List<String>> quantityToString = new HashMap<>();
+        if (k == 0) {
+            response.append(allWords);
+            return response.toString();
+        }
 
         for (String word : allWords) {
             //adding to priority queue backwards
@@ -48,11 +52,8 @@ public class HyponymsHandler extends NgordnetQueryHandler {
                 }
             }
         }
-        if (quantity.size() < k) {
-            response.append(quantityToString.values());
-        }
-        else {
-            while (k != 0) {
+
+            while (k != 0 && !quantity.isEmpty()) {
                 Double maximum = quantity.remove();
                 List<String> maximumList = new ArrayList<>(quantityToString.get(maximum));
                 String maximumWord = maximumList.get(0);
@@ -61,14 +62,11 @@ public class HyponymsHandler extends NgordnetQueryHandler {
                 k--;
                 kWords.add(maximumWord);
             }
-            Collections.sort(kWords);
-            response.append(kWords);
-        }
-
+                Collections.sort(kWords);
+                response.append(kWords);
         return response.toString();
     }
     public Double totalFreq(TimeSeries historyOfWord) {
-
         Double sum = 0.0;
         for(Double value : historyOfWord.values()) {
             sum += value;
