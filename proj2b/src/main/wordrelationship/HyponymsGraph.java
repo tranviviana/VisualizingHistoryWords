@@ -81,70 +81,24 @@ public class HyponymsGraph {
         Collections.sort(totalNames);
         return totalNames;
     }
-
-
     public List<String> hyponyms(List<String> words) {
-        List<Integer> idsOfEveryone = new ArrayList<>();
-        for (String word : words) {
-            idsOfEveryone.addAll(synsetGraph.allChildrenList(wordToId.get(word)));
+        List<List<String>> totalNames = new ArrayList<>();
+        if (words.size() == 1) {
+            return idToNames(synsetGraph.allChildrenList(wordToId.get(words.get(0))));
         }
-        return idToNames(idsOfEveryone);
+        else {
+            for (String word : words) {
+                totalNames.add(idToNames(synsetGraph.allChildrenList(wordToId.get(word))));
+            }
+            for (int i = 1; i < totalNames.size(); i++) {
+                totalNames.get(0).retainAll(totalNames.get(i));
+            }
+        }
+        return totalNames.get(0);
     }
 
-//    public void buildRelationship(In relationFile) {
-//        while (relationFile.hasNextLine()) {
-//            String nextLine = relationFile.readLine();
-//            String[] splitLine = nextLine.split(",");
-//            List<Integer> children = new ArrayList<>();
-//
-//            int id = Integer.parseInt(splitLine[0]);
-//            for (int i = 1; i < splitLine.length; i += 1) {
-//                children.add(Integer.parseInt(splitLine[i]));
-//            }
-//            id
-//        }
-//    }
-//    private Graph synsetsGraph;
-//
-//    public HyponymsGraph(String hyponymsFiles, String synsetsFiles) {
-//        //this.synsetsGraph = new Graph();
-//        In relationIn = new In(hyponymsFiles);
-//        relationshipCreator(relationIn);
-//        In synIn = new In(synsetsFiles);
-//        definitionCreator(synIn);
-//
-//    }
-//
-//    private void relationshipCreator(In relationIn) {
-//
-//        while (relationIn.hasNextLine()) {
-//            String nextLine = relationIn.readLine();
-//            String[] split = nextLine.split(",");
-//            int i = 1;
-//            int sizeSplit = split.length;
-//            while (i < sizeSplit) {
-//                synsetsGraph.individualAddRelationships((Integer.parseInt(split[0])), Integer.parseInt(split[i]));
-//                i++;
-//            }
-//
-//        }
-//
-//
-//
-//    }
-//    private void definitionCreator(In synIn) {
-//        while (synIn.hasNextLine()) {
-//            String nextLine = synIn.readLine();
-//            String[] splitLine = nextLine.split(",");
-//            int id = Integer.parseInt(splitLine[0]);
-//            String[] definition = splitLine[1].split(" ");
-//            for (String word : definition) {
-//                synsetsGraph.addDefinitionSingle(id, word);
-//            }
-//        }
-//    }
-//    public List<String> hyponyms(List<String> parents) {
-//        return synsetsGraph.getSimilarFamily(parents);
-//    }
+
+
+
 
 }
