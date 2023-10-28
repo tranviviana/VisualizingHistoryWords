@@ -2,6 +2,7 @@ package main.wordrelationship;
 import edu.princeton.cs.algs4.In;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,14 +46,13 @@ public class HyponymsGraph {
         }
         synsetGraph = new Graph(sizeOfGroup);
     }
-    //builds the relationship of occurences, if a word occurs in more nodes, it is maped in this map
+    //builds the relationship of occurences, if a word occurs in more nodes, it is mapped in this map
     //if its not already mapped add it if it is adjust the bin to have the id as well
     public void connectWordToId(String word, int id) {
         if (!wordToId.containsKey(word)) {
             wordToId.put(word, List.of(id));
         }
         wordToId.get(word).add(id);
-
     }
     //achieves the graph method and correlates the nodes to one another
     public void buildRelations(In relationshipFile) {
@@ -65,8 +65,19 @@ public class HyponymsGraph {
         }
     }
     //converts ids to the names and alphabetizes
-    public void idToNames(List<Integer> ids) {
-        for
+    public List<String> idToNames(List<Integer> ids) {
+        List<String> totalNames = new ArrayList<>();
+        for (int i : ids) {
+            if (!totalNames.contains(idToWord.get((i)))) {
+                totalNames.add(idToWord.get(i).toString());
+            }
+        }
+        Collections.sort(totalNames);
+        return totalNames;
+    }
+
+    public char[] hyponyms(List<String> words) {
+        
     }
 
 //    public void buildRelationship(In relationFile) {

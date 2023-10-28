@@ -19,43 +19,47 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     }
     @Override
     public String handle(NgordnetQuery q) {
-        List<String> words = q.words();
-        int startYear = q.startYear();
-        int endYear = q.endYear();
-        int k = q.k();
-        TreeMap<Double, String> quantityToResponse = new TreeMap<>();
-        StringBuilder response = new StringBuilder();
-        List<Double> quantity = new ArrayList<>();
-        NavigableSet<Double> descendedKey;
-
-        if (k == 0) {
-            return response.append(hg.hyponyms(words)).toString();
-        }
-        List<String> unfilteredResponse = hg.hyponyms(words);
-        List<String> filteredResponse = new ArrayList<>();
-        for (String hyponymWord : unfilteredResponse) {
-            quantity.add(totalFrequency(ngm.countHistory(hyponymWord, startYear, endYear)));
-        }
-        int i = 0;
-        for (Double quant : quantity) {
-            quantityToResponse.put(quant, unfilteredResponse.get(i));
-            i++;
-        }
-        i = 1;
-        descendedKey = quantityToResponse.descendingKeySet();
-        for (Double key : descendedKey) {
-            if (i == k) {
-                break;
-            }
-            filteredResponse.add(quantityToResponse.get(key));
-            i++;
-        }
-        Collections.sort(filteredResponse);
-        response.append(filteredResponse);
-        if (response.isEmpty()) {
-            response.append("[]");
-        }
-        return response.toString();
+          List<String> words = q.words();
+          StringBuilder response = new StringBuilder();
+          response.append(hg.hyponyms(words).toString());
+          return response.toString();
+//        List<String> words = q.words();
+//        int startYear = q.startYear();
+//        int endYear = q.endYear();
+//        int k = q.k();
+//        TreeMap<Double, String> quantityToResponse = new TreeMap<>();
+//        StringBuilder response = new StringBuilder();
+//        List<Double> quantity = new ArrayList<>();
+//        NavigableSet<Double> descendedKey;
+//
+//        if (k == 0) {
+//            return response.append(hg.hyponyms(words)).toString();
+//        }
+//        List<String> unfilteredResponse = hg.hyponyms(words);
+//        List<String> filteredResponse = new ArrayList<>();
+//        for (String hyponymWord : unfilteredResponse) {
+//            quantity.add(totalFrequency(ngm.countHistory(hyponymWord, startYear, endYear)));
+//        }
+//        int i = 0;
+//        for (Double quant : quantity) {
+//            quantityToResponse.put(quant, unfilteredResponse.get(i));
+//            i++;
+//        }
+//        i = 1;
+//        descendedKey = quantityToResponse.descendingKeySet();
+//        for (Double key : descendedKey) {
+//            if (i == k) {
+//                break;
+//            }
+//            filteredResponse.add(quantityToResponse.get(key));
+//            i++;
+//        }
+//        Collections.sort(filteredResponse);
+//        response.append(filteredResponse);
+//        if (response.isEmpty()) {
+//            response.append("[]");
+//        }
+//        return response.toString();
     }
     public double totalFrequency(TimeSeries wordWeightHistory) {
         double totalValue = 0.0;
