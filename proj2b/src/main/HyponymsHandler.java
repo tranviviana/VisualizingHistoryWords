@@ -39,7 +39,9 @@ public class HyponymsHandler extends NgordnetQueryHandler {
             if (totalSum != 0.0) {
                 quantity.add(-1 * totalSum);
                 if (!quantityToString.containsKey(-1 * totalSum)) {
-                    quantityToString.put(-1 * totalSum, (ArrayList<String>) List.of(word));
+                    ArrayList<String> associatedWord = new ArrayList<>();
+                    associatedWord.add(word);
+                    quantityToString.put(-1 * totalSum, associatedWord);
                 } else {
                     quantityToString.get(-1 * totalSum).add(word);
                     quantityToString.put(-1 * totalSum, quantityToString.get(-1 * totalSum));
