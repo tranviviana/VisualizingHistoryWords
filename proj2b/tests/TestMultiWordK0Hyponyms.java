@@ -144,16 +144,6 @@ public class TestMultiWordK0Hyponyms {
         String expected = "[dancer]";
         assertThat(actual).isEqualTo(expected);
     }
-//    @Test
-//    public void test20() {
-//        NgordnetQueryHandler studentHandler = AutograderBuddy.getHyponymHandler(
-//                funkyCSV, funkytotals, funky20, funky20hyponyms);
-//        List<String> words = List.of("AAAA");
-//        NgordnetQuery nq = new NgordnetQuery(words, 1400, 202020,3);
-//        String actual = studentHandler.handle(nq);
-//        String expected = "[DDDD, EEEE, FFFF]";
-//        assertThat(actual).isEqualTo(expected);
-//    }
 
 
 }

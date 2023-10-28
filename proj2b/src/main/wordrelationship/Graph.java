@@ -24,6 +24,7 @@ public class Graph {
     public List<Integer> directChildren(int parent) {
         return connectedTo.get(parent);
     }
+    //possible optimization
     public List<Integer> allChildrenList(List<Integer> occurences) {
         List<Integer> totalIds = new ArrayList<>();
         if (occurences == null) {
