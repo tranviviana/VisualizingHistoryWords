@@ -1,10 +1,7 @@
 package main.wordrelationship;
 import edu.princeton.cs.algs4.In;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * An object that provides utility methods for making queries on the
@@ -50,10 +47,11 @@ public class HyponymsGraph {
     //if its not already mapped add it if it is adjust the bin to have the id as well
     public void connectWordToId(String word, int id) {
         if (!wordToId.containsKey(word)) {
-            wordToId.put(word, new ArrayList<>(List.of(id)));
+            ArrayList<Integer> newWord = new ArrayList<>();
+            newWord.add(id);
+            wordToId.put(word, newWord);
         } else {
             wordToId.get(word).add(id);
-            wordToId.put(word, wordToId.get(word));
         }
     }
     //achieves the graph method and correlates the nodes to one another
@@ -68,16 +66,13 @@ public class HyponymsGraph {
     }
     //converts ids to the names and alphabetizes
     public List<String> idToNames(List<Integer> ids) {
-        List<String> totalNames = new ArrayList<>();
+        Set<String> totalNames = new HashSet<>();
         for (int i : ids) {
-            for (String word : idToWord.get(i)) {
-                if (!totalNames.contains(word)) {
-                    totalNames.add(word);
-                }
-            }
+            totalNames.addAll(idToWord.get(i));
         }
-        Collections.sort(totalNames);
-        return totalNames;
+        List<String> sortedNames = new ArrayList<>(totalNames);
+        Collections.sort(sortedNames);
+        return sortedNames;
     }
     public List<String> hyponyms(List<String> words) {
         List<List<String>> totalNames = new ArrayList<>();
@@ -93,9 +88,4 @@ public class HyponymsGraph {
         }
         return totalNames.get(0);
     }
-
-
-
-
-
 }
