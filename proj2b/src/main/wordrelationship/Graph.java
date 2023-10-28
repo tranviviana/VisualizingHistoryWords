@@ -22,7 +22,6 @@ public class Graph {
             connectedTo.put(parent, bucket);
         } else {
             connectedTo.get(parent).add(child);
-            connectedTo.put(parent, connectedTo.get(parent));
         }
     }
 
