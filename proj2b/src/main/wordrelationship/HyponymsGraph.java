@@ -80,7 +80,11 @@ public class HyponymsGraph {
             return idToNames(synsetGraph.allChildrenList(wordToId.get(words.get(0))));
         } else {
             for (String word : words) {
-                totalNames.add(idToNames(synsetGraph.allChildrenList(wordToId.get(word))));
+                List<String> currentHyponyms = idToNames(synsetGraph.allChildrenList(wordToId.get(word)));
+                if (currentHyponyms.isEmpty()) {
+                    return new ArrayList<>();
+                }
+                totalNames.add(currentHyponyms);
             }
             for (int i = 1; i < totalNames.size(); i++) {
                 totalNames.get(0).retainAll(totalNames.get(i));
