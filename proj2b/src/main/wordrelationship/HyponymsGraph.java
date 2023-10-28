@@ -68,16 +68,36 @@ public class HyponymsGraph {
     public List<String> idToNames(List<Integer> ids) {
         List<String> totalNames = new ArrayList<>();
         for (int i : ids) {
-            if (!totalNames.contains(idToWord.get((i)))) {
+            if (!compareItems(totalNames, i)) {
                 totalNames.add(idToWord.get(i).toString());
             }
         }
         Collections.sort(totalNames);
         return totalNames;
     }
+    //might need to optimize in the future
+    //helper function that checks that a name already exists in the list
+    private boolean compareItems (List<String> nameList, int currentId) {
+        for (String name : nameList) {
+            for (String currentNames : idToWord.get(currentId)) {
+                if (name.equals(currentNames)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-    public char[] hyponyms(List<String> words) {
-        
+    public List<String> hyponyms(List<String> words) {
+        List<Integer> idsOfParents = new ArrayList<>();
+        List<Integer> idsOfEveryone = new ArrayList<>();
+        for (String word : words) {
+            idsOfParents.addAll(wordToId.get(word));
+        }
+        for (int parent : idsOfParents) {
+            idsOfEveryone.addAll(synsetGraph.allChildren(parent));
+        }
+        return idToNames(idsOfEveryone);
     }
 
 //    public void buildRelationship(In relationFile) {
