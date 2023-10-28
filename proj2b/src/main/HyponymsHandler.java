@@ -40,7 +40,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         for (String word : allWords) {
             //adding to priority queue backwards
             Double totalSum = totalFreq(ngm.countHistory(word, startYear, endYear));
-            if (totalSum != 0) {
+            if (totalSum != 0.0) {
                 quantity.add(-1 * totalSum);
                 if (!quantityToString.containsKey(-1*totalSum)) {
                     quantityToString.put(-1*totalSum, List.of(word));
@@ -52,7 +52,6 @@ public class HyponymsHandler extends NgordnetQueryHandler {
                 }
             }
         }
-
             while (k != 0 && !quantity.isEmpty()) {
                 Double maximum = quantity.remove();
                 List<String> maximumList = new ArrayList<>(quantityToString.get(maximum));
