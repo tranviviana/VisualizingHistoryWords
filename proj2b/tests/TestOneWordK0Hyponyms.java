@@ -94,9 +94,6 @@ public class TestOneWordK0Hyponyms {
         String expected = "[adjustment, alteration, change, conversion, increase, jump, leap, modification, mutation, saltation, transition]";
         assertThat(actual).isEqualTo(expected);
     }
-    @Test
-    public void testHashMap() {
 
-    }
 
 }

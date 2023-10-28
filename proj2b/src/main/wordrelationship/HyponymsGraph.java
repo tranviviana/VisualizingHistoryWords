@@ -37,7 +37,7 @@ public class HyponymsGraph {
             String nextLine = definitionFile.readLine();
             String[] splitLine = nextLine.split(",");
             int id = Integer.parseInt(splitLine[0]);
-            List<String> definition = List.of(splitLine[1].split(" "));
+            List<String> definition = new ArrayList<>(List.of(splitLine[1].split(" ")));
             for (String word : definition) {
                 connectWordToId(word, id);
             }
@@ -50,9 +50,13 @@ public class HyponymsGraph {
     //if its not already mapped add it if it is adjust the bin to have the id as well
     public void connectWordToId(String word, int id) {
         if (!wordToId.containsKey(word)) {
-            wordToId.put(word, List.of(id));
+            wordToId.put(word, new ArrayList<>(List.of(id)));
         }
-        wordToId.get(word).add(id);
+        else {
+            List<Integer> addingNewId = new ArrayList<>(wordToId.get(word));
+            addingNewId.add(id);
+            wordToId.put(word, addingNewId);
+        }
     }
     //achieves the graph method and correlates the nodes to one another
     public void buildRelations(In relationshipFile) {
@@ -60,7 +64,7 @@ public class HyponymsGraph {
             String nextLine = relationshipFile.readLine();
             String[] splitLine = nextLine.split(",");
             for (int i = 1; i < splitLine.length; i += 1) {
-                synsetGraph.addEdge(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[1]));
+                synsetGraph.addEdge(Integer.parseInt(splitLine[0]), Integer.parseInt(splitLine[i]));
             }
         }
     }
@@ -68,34 +72,21 @@ public class HyponymsGraph {
     public List<String> idToNames(List<Integer> ids) {
         List<String> totalNames = new ArrayList<>();
         for (int i : ids) {
-            if (!compareItems(totalNames, i)) {
-                totalNames.add(idToWord.get(i).toString());
+            for (String word : idToWord.get(i)) {
+                if (!totalNames.contains(word)) {
+                    totalNames.add(word);
+                }
             }
         }
         Collections.sort(totalNames);
         return totalNames;
     }
-    //might need to optimize in the future
-    //helper function that checks that a name already exists in the list
-    private boolean compareItems (List<String> nameList, int currentId) {
-        for (String name : nameList) {
-            for (String currentNames : idToWord.get(currentId)) {
-                if (name.equals(currentNames)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
 
     public List<String> hyponyms(List<String> words) {
-        List<Integer> idsOfParents = new ArrayList<>();
         List<Integer> idsOfEveryone = new ArrayList<>();
         for (String word : words) {
-            idsOfParents.addAll(wordToId.get(word));
-        }
-        for (int parent : idsOfParents) {
-            idsOfEveryone.addAll(synsetGraph.allChildren(parent));
+            idsOfEveryone.addAll(synsetGraph.allChildrenList(wordToId.get(word)));
         }
         return idToNames(idsOfEveryone);
     }

@@ -19,10 +19,21 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     }
     @Override
     public String handle(NgordnetQuery q) {
-          List<String> words = q.words();
-          StringBuilder response = new StringBuilder();
-          response.append(hg.hyponyms(words).toString());
-          return response.toString();
+        List<String> words = q.words();
+        StringBuilder response = new StringBuilder();
+        response.append(hg.hyponyms(words));
+        return response.toString();
+
+
+
+
+
+
+
+
+
+
+
 //        List<String> words = q.words();
 //        int startYear = q.startYear();
 //        int endYear = q.endYear();
@@ -60,14 +71,14 @@ public class HyponymsHandler extends NgordnetQueryHandler {
 //            response.append("[]");
 //        }
 //        return response.toString();
+//    }
+//    public double totalFrequency(TimeSeries wordWeightHistory) {
+//        double totalValue = 0.0;
+//        for (int k : wordWeightHistory.keySet()) {
+//            totalValue += wordWeightHistory.get(k);
+//        }
+//        return totalValue;
+//
+//    }
     }
-    public double totalFrequency(TimeSeries wordWeightHistory) {
-        double totalValue = 0.0;
-        for (int k : wordWeightHistory.keySet()) {
-            totalValue += wordWeightHistory.get(k);
-        }
-        return totalValue;
-
-    }
-
 }
