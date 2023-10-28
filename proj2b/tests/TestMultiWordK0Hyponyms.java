@@ -12,7 +12,7 @@ import static edu.princeton.cs.algs4.StdOut.print;
 /** Tests the case where the list of words is length greater than 1, but k is still zero. */
 public class TestMultiWordK0Hyponyms {
     // this case doesn't use the NGrams dataset at all, so the choice of files is irrelevant
-    public static final String WORDS_FILE = "data/ngrams/top_49887_words.csv";
+    public static final String WORDS_FILE = "data/ngrams/top_14377_words.csv";
 
     public static final String TOTAL_COUNTS_FILE = "data/ngrams/total_counts.csv";
     public static final String SMALL_SYNSET_FILE = "data/wordnet/synsets16.txt";
