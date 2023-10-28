@@ -26,8 +26,8 @@ public class HyponymsGraph {
         this.wordToId = new HashMap<>();
         this.idToWord = new HashMap<>();
         In relationIn = new In(hyponymsFiles);
-        In idToWord = new In(synsetsFiles);
-        connectIdToWord(idToWord);
+        In idMarker = new In(synsetsFiles);
+        connectIdToWord(idMarker);
         buildRelations(relationIn);
     }
     //creates the graph and reads the file to map the ids to the definitions
@@ -51,8 +51,7 @@ public class HyponymsGraph {
     public void connectWordToId(String word, int id) {
         if (!wordToId.containsKey(word)) {
             wordToId.put(word, new ArrayList<>(List.of(id)));
-        }
-        else {
+        } else {
             List<Integer> addingNewId = new ArrayList<>(wordToId.get(word));
             addingNewId.add(id);
             wordToId.put(word, addingNewId);
@@ -85,8 +84,7 @@ public class HyponymsGraph {
         List<List<String>> totalNames = new ArrayList<>();
         if (words.size() == 1) {
             return idToNames(synsetGraph.allChildrenList(wordToId.get(words.get(0))));
-        }
-        else {
+        } else {
             for (String word : words) {
                 totalNames.add(idToNames(synsetGraph.allChildrenList(wordToId.get(word))));
             }
